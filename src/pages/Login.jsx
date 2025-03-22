@@ -30,7 +30,7 @@ const Login = () => {
           <div className='form-input'>
             <form name='usermail' method='post' onSubmit={handleSubmit}>
               <div className='email-input py-2 mb-2'>
-                <label htmlFor="email" className="block text-sm font-medium font-pixelify text-gray-300 mb-2">Email</label>
+                <label htmlFor="email" className="block text-sm font-medium = text-gray-300 mb-2">Email</label>
                 <input
                   type="email"
                   id="email"
@@ -39,7 +39,7 @@ const Login = () => {
                 />
               </div>
               <div className='password-input'>
-                <label htmlFor='password' className='block text-sm font-medium font-pixelify text-gray-300 mb-2'>Password</label>
+                <label htmlFor='password' className='block text-sm font-medium text-gray-300 mb-2'>Password</label>
                 <input
                   type='password'
                   id="password"
@@ -47,13 +47,13 @@ const Login = () => {
                 />
               </div>
               <div className='flex justify-center items-center mt-2 py-2'>
-                <Button type={'submit'} className={"text-zinc-900 font-pixelify mx-auto w-full bg-slate-100 hover:bg-slate-300 rounded-md"} >Login</Button>
+                <Button type={'submit'} className={"text-zinc-900 font-medium mx-auto w-full bg-slate-100 hover:bg-slate-300 rounded-md"} >Login</Button>
               </div>
             </form>
           </div>
           <div className='siguproute relative'>
             <div className='absolute inset-0 flex items-center'><span className='w-full border-t border-n-1/20'></span></div>
-            <div className='flex relative justify-center text-xs uppercase font-pixelify '>
+            <div className='flex relative justify-center text-xs uppercase'>
               <span className='bg-black px-2 text-gray-300'>
                 or&nbsp;<span><Link to="/signup">signup</Link></span>
               </span>
