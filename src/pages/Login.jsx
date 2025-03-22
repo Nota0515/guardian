@@ -1,5 +1,6 @@
 import React from 'react'
 import Button from '../components/Buttons'
+import { useEffect } from 'react';
 
 const Login = () => {
 
@@ -8,15 +9,19 @@ const Login = () => {
     console.log("the Button was clicked")
   };
 
-
-
+  useEffect(() => {
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = 'auto'; // Re-enable scroll on unmount
+    };
+  }, []);
 
 
 
   return (
-    <div className='flex items-center justify-center'>
-      <div className='flex w-[21.75rem] border-n-1/20 border rounded-lg items-start justify-center px-5 py-5'>
-        <div className='flex flex-col justify-cente flex-wrap gap-y-5'>
+    <div className='flex items-center justify-center h-screen w-screen bg-gradient-radial from-black via-black to-blue-600/10'>
+      <div className='flex w-[21.75rem] border-n-1/20  border rounded-lg items-start justify-center px-5 py-5 mx-10 md:mx-5 lg:mx-0 transition-shadow duration-300 hover:shadow-[0_0_50px_10px_rgba(37,99,235,0.1)]'>
+        <div className='flex flex-col justify-center flex-wrap gap-y-5'>
           <div className='heading-log'>
             <h2 className='text-2xl font-semibold font-pixelify mb-2'>Login</h2>
             <h5 className='text-sm font-pixelify text-gray-500'>enter your email and password to login to your account</h5>
