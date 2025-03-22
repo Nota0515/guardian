@@ -1,6 +1,7 @@
 import React from 'react'
 import Button from '../components/Buttons'
-import { useEffect } from 'react';
+import { useEffect, } from 'react';
+import { Link } from 'react-router-dom';
 
 const Login = () => {
 
@@ -49,6 +50,14 @@ const Login = () => {
                 <Button type={'submit'} className={"text-zinc-900 font-pixelify mx-auto w-full bg-slate-100 hover:bg-slate-300 rounded-md"} >Login</Button>
               </div>
             </form>
+          </div>
+          <div className='siguproute relative'>
+            <div className='absolute inset-0 flex items-center'><span className='w-full border-t border-n-1/20'></span></div>
+            <div className='flex relative justify-center text-xs uppercase font-pixelify '>
+              <span className='bg-black px-2 text-gray-300'>
+                or&nbsp;<span><Link to="/signup">signup</Link></span>
+              </span>
+            </div>
           </div>
         </div>
       </div>
