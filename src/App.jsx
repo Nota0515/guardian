@@ -6,7 +6,7 @@ import Home from "./pages/Home"
 const App = () => {
   return (
     <>
-      <div className="flex items-center justify-center h-screen rounded-xl">
+      <div className="flex items-center justify-center h-screen">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
