@@ -30,7 +30,7 @@ export default {
       },
       backgroundImage:{
         "text-gradient":"linear-gradient(90deg, #46FFFF , #62E862)",
-        "radial-gradient": "radial-gradient(var(--tw-gradient-stops))",
+        "background-radiant" : "radial-gradient(circle, rgba(183, 94, 48, 0.6) 0%, rgba(0, 0, 0, 0) 70%)",
         "conic-gradient": "conic-gradient(from 225deg at 52% 50%, #62E862, #46FFFF, rgba(136, 255, 206, 1), #62E862)",
       },
       transitionTimingFunction : {
