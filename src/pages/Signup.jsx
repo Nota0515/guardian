@@ -1,13 +1,46 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Button from '../components/Buttons'
 import { useEffect, } from 'react';
 import { Link } from 'react-router-dom';
 
 const Signup = () => {
 
+  const [createPassword , setCreatePassword] = useState('');
+  const [confirmPassword , setConfirmPassword] = useState('');
+  const [ error , setError ] = useState('');
+  const [emailerror, setEmailerror] = useState('');
+  const [passwordError, setPasswordError] = useState('');
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("the Button was clicked")
+    const formdata = new FormData(e.target);
+    const email = formdata.get('email');
+    const password = formdata.get('createPassword');
+    const confirmPassword = formdata.get('confirmPassword');
+    const emailregex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    /* 1st we will check the valid email */
+    if(!emailregex.test(email)){
+      setEmailerror("plz enter a valid email");
+      return;
+    }
+
+
+    if (password.length < 8){
+      setPasswordError("password must be atleast be 8 character long")
+      return;
+    }else{
+      setPasswordError('')
+    }
+
+    if( createPassword !== confirmPassword){
+      setError("password does not match");
+      return;
+    }
+
+    setError('');
+    console.log('form submitted sucessfully')
+
   };
 
   useEffect(() => {
@@ -32,24 +65,32 @@ const Signup = () => {
                 <label htmlFor="email" className="block text-sm font-medium  text-gray-300 mb-2">Email</label>
                 <input
                   type="email"
+                  name='email'
                   id="email"
                   placeholder='you@example.com'
                   className="mt-1 block w-full p-2 bg-zinc-900 700 border border-gray-300/20 rounded-md"
                 />
+                {emailerror && <p className="text-red-900 text-sm ">{emailerror}</p>}
               </div>
               <div className='password-input flex flex-col gap-y-2'>
-                <label htmlFor='password' className='block text-sm font-medium  text-gray-300 '>Create Password</label>
+                <label htmlFor='createPassword' className='block text-sm font-medium  text-gray-300 '>Create Password</label>
                 <input
                   type='password'
-                  id="password"
+                  name='createPassword'
+                  id="createPassword"
+                  onChange={(e)=> setCreatePassword(e.target.value)}
                   className=' block w-full p-2 bg-zinc-900 700 border border-gray-300/20 rounded-md'
                 />
-                <label htmlFor='password' className='block text-sm font-medium  text-gray-300 '>Confirm password</label>
+                {passwordError && <p className="text-red-900 text-sm ">{passwordError}</p>}
+                <label htmlFor='confirmPassword' className='block text-sm font-medium  text-gray-300 '>Confirm password</label>
                 <input
                   type='password'
-                  id="password"
+                  name='confirmPassword'
+                  id="confirmPassword"
+                  onChange={(e)=> setConfirmPassword(e.target.value)}
                   className=' block w-full p-2 bg-zinc-900 700 border border-gray-300/20 rounded-md'
                 />
+                {error && <p className="text-red-900 text-sm ">{error}</p>}
               </div>
               <div className='flex justify-center items-center mt-2 py-2'>
                 <Button type={'submit'} className={"text-zinc-900  mx-auto w-full font-medium bg-slate-100 hover:bg-slate-300 rounded-md"} >Sign Up</Button>
