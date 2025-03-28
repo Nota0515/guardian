@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 const Button = ({children , className , href , onClick , type= "button" }) => {
 
-    const classes = `${className || ''} relative inline-flex items-center justify-center h-11 p-1`
+    const classes = `${className || ''} relative flex inline-flex items-center justify-center p-1`
   
     const renderButton = () =>(
       <button className={classes} onClick={onClick} type={type}>
