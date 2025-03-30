@@ -12,7 +12,7 @@ const Userinfotoggle = () => {
     console.log('the btn is clicked')
   }
   return (
-    <div className={`userinformation w-full h-full rounded-md font-thin text-base overflow-hidden border border-white/20 flex items-start p-2 flex-col gap-y-1  transition-all duration-500 ease-in-out`}>
+    <div className={`userinformation w-full h-full rounded-md font-thin text-base overflow-hidden border border-white/20 flex items-start p-2 flex-col gap-y-1`}>
             <div className='profileuser'>
               <Link to={'/profile'} className='flex flex-1 pl-1  items-center gap-2'>
                 <span><CiUser /></span><p>Profile</p>
