@@ -29,7 +29,7 @@ export default {
         },
       },
       backgroundImage:{
-        "text-gradient":"linear-gradient(90deg, #46FFFF , #62E862)",
+        'text-gradient': 'linear-gradient(90deg, hsla(22, 100%, 78%, 1) 0%, hsla(2, 78%, 62%, 1) 100%)',
         'gradient-radial': 'radial-gradient(circle, var(--tw-gradient-stops))',
         "conic-gradient": "conic-gradient(from 225deg at 52% 50%, #62E862, #46FFFF, rgba(136, 255, 206, 1), #62E862)",
       },
