@@ -52,12 +52,12 @@ export default {
         'xl': '0 35px 35px rgba(221, 190, 99, 0.3)',
       }
     },
-    screens:{
+    screens: {
       'xl': '1280px',
       'lg': '1024px',
       'md': '768px',
-      'sm': '640px',
-    }
+      'sm': '360px',
+    }    
   },
   plugins: [],
 }
