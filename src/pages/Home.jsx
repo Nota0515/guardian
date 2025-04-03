@@ -1,6 +1,7 @@
-import React from 'react'
-import { useEffect, useState } from 'react';
-import { GoSidebarCollapse, GoSidebarExpand } from "react-icons/go";
+import { useEffect, useState , useRef } from 'react';
+import Inputfeild from '../components/Inputfeild'
+import { IoSend } from "react-icons/io5";
+import { GoPlus } from "react-icons/go";
 import Userinfotoggle from '../components/Userinfotoggle'
 import { Link } from "react-router-dom"
 import Button from '../components/Buttons'
@@ -9,13 +10,40 @@ const Home = () => {
 
   const [isSidebar, setIsSidebar] = useState(false);
   const [isinfo, setIsinfo] = useState(false)
+  const [userprompt, setuserprompt] = useState('');
 
-  const handleClick = () => {
+  const textAreaRef = useRef(null);
+
+  const handleTextArea = (e) => {
+    setuserprompt(e.target.value);
+    adjustTextareaHeight();
+  }
+
+  const adjustTextareaHeight = () => {
+    const textarea = textAreaRef.current;
+    if(!textarea) return ;
+    textarea.style.height = 'auto'
+    const newHeight = Math.min(textarea.scrollHeight , 300);
+    textarea.style.height = `${newHeight}px`
+  }
+
+
+  useEffect(()=>{
+    adjustTextareaHeight();
+  }, [userprompt])
+
+  const handleSlideBar = () => {
     if (isSidebar) {
       setIsSidebar(false);
     } else {
       setIsSidebar(true);
     }
+  }
+
+
+
+  const handleClick = () => {
+    console.log("wtyoujh")
   }
 
   const displayUserinfo = () => {
@@ -37,42 +65,17 @@ const Home = () => {
 
 
   return (
-    <div className='flex items-center flex-row w-screen min-h-screen'>
-      <div className={`slidingwindow ${isSidebar ? "w-[5rem]" : 'w-[260px]'} overflow-hidden transition-all duration-500 ease-in-out`}>
-        <div className='flex flex-shrink-0 overflow-x-hidden '>
-          <div className='h-screen w-full bg-blue-950/10 border-r border-white/20 '>
-            <div className='flex h-full min-h-0 flex-col'>
-              <div className='dragcontent relative pl-5 flex-1 justify-center h-full w-full border-white/20'>
-                <div className="top-nav flex flex-row items-center h-fit w-fit" >
-                  <div className='burgur-icon flex hover:bg-zinc-800 rounded-md w-[40px] h-[40px] justify-center items-center mt-5 px-1'>
-                    <Button onClick={handleClick}>{isSidebar ? <GoSidebarCollapse size={20} /> : <GoSidebarExpand size={20} />}</Button>
-                  </div>
-                </div>
-                <div className={`sidebar-content ${isSidebar ? "hidden" : ''}`}>
-                  <div className="newchat mt-2">
-                    <Link to={'/'}>
-                      <div className='newchat flex flex-nowrap flex-row gap-x-1 items-center w-fit p-2 rounded-md overflow-hidden hover:bg-zinc-800'>
-                        <img src='/logoimg.png' className='w-6 h-6' />
-                        <span className='font-pixelify text-white ' >Guardian</span>
-                      </div>
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="mainscreencontent flex relative bg-gradient-radial from-black via-black to-blue-900/10 justify-center flex-1 w-full h-screen">
-        <header className="topnavigation absolute w-full p-2 mt-3 top-0 left-0 flex items-center justify-between">
-          <div className="companylogo flex p-2 rounded-md hover:bg-zinc-800">
+    <div className='flex items-center relative flex-row w-screen min-h-screen'>
+      <div className="mainscreencontent flex relative bg-gradient-radial from-black/90 via-black to-blue-900/10 justify-center flex-1 w-full h-screen">
+        <header className="topnavigation absolute w-full p-2 mt-3 top-0 left-0 flex items-center justify-between select-none">
+          <div className="companylogo flex p-2 scale-90 md:scale-100 rounded-md lg:hover:bg-white/10 select-none">
             <Link to={'/'} className='flex flex-nowrap items-center'>
-              <img src='/logoimg.png' className='w-8 h-8 mr-1 content-start overflow-hidden' />
-              <span className='font-pixelify text-white text-2xl' >Guardian</span>
+              <img src='/logoimg.png' className='w-8 h-8 mr-1 content-start' />
+              <span className='font-pixelify text-white text-2xl ' >Guardian</span>
             </Link>
           </div>
           <div className="userprofile">
-            <div className="userlogo p-1 hover:bg-zinc-800 rounded-md">
+            <div className="userlogo p-1 scale-90 md:scale-100 lg:hover:bg-white/10 rounded-md">
               <Button onClick={displayUserinfo}>
                 <div className='h-8 w-8 rounded-full overflow-hidden'>
                   <img src='src\assets\tem111.png' className='object-contain' />
@@ -81,10 +84,37 @@ const Home = () => {
             </div>
           </div>
         </header>
-        <div className={`userinfo absolute top-20 right-0 pr-4 w-40 h-36 transition-all duration-200 ease-out ${isinfo ? 'opacity-100 scale-100 translate-y-0' : 'opacity-0 scale-95 -translate-y-2 pointer-events-none'}`}>
+        <div className={`userinfo absolute top-20 right-0 pr-4 w-40 h-36 ${isinfo ? '' : 'hidden'}`}>
           <Userinfotoggle />
         </div>
-        <div className='restmain w-full h-full flex flex-col p-1 md:p-2 lg:p-4'></div>
+        <div className='restmain w-full h-full flex flex-col p-1 md:p-2 lg:p-4'>
+          <div className="greetingUser flex items-center translate-y-[20%] justify-center w-full h-[30rem] p-5">
+            <h1 className='text-2xl font-bold h-12 bg-text-gradient bg-clip-text text-transparent'>
+              Hello ,<span>User</span>
+            </h1>
+          </div>
+          <div className="res-field"></div>
+          <div className="promptfeild w-full bottom-0 flex flex-1 px-2 items-center justify-center">
+            <div className='input-feild-div relative w-full p-1 mt-1 min-h-28 rounded-3xl border border-white/20'>
+              <div className="inputfeild flex w-full h-full px-2">
+                <textarea
+                placeholder='Ask me any DSA question'
+                className='text-white bg-transparent resize-none overflow-hidden w-full px-2 text-lg outline-none '
+                value={userprompt}
+                ref={textAreaRef}
+                onChange={handleTextArea}
+                rows={1}
+                />
+              </div>
+              <div className="uploadicon absolute bottom-2 left-2 w-10 h-10 bg-blue-900/10 rounded-full active:bg-blue-900/20">
+              <Button onClick={handleClick} className="w-full h-full"><GoPlus size={30} color='grey' /></Button>
+              </div>
+              <div className="uploadicon absolute bottom-2 right-2 w-10 h-10 bg-blue-900/10 rounded-full active:bg-blue-900/20">
+              <Button onClick={handleClick} className="w-full h-full"><IoSend  size={20} color='grey' /></Button>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   )
