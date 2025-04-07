@@ -57,7 +57,7 @@ const Signup = () => {
         <div className='flex flex-col justify-center w-full flex-wrap gap-y-5'>
           <div className='heading-log'>
             <h2 className='text-2xl font-semibold font-pixelify mb-2'>Sign Up</h2>
-            <h5 className='text-sm font-pixelify text-gray-500'>Create a new account to get started</h5>
+            <h5 className='text-sm  text-gray-500'>Create a new account to get started</h5>
           </div>
           <div className='form-input'>
             <form name='usermail' method='post' onSubmit={handleSubmit}>
