@@ -6,10 +6,10 @@ const Pricing = () => {
     <div className='flex w-screen min-h-screen py-10 px-5 sm:px-10 lg:py-5 justify-center items-center'>
       <div className='price-content flex p-1 flex-col md:flex-row lg:flex-row w-[70rem] gap-x-8 gap-y-8 mx-auto min-h-full'>
         <div className='mainpricecontent1 flex flex-col relative w-auto bg-gradient-to-r from-slate-950 to-black rounded-xl border border-slate-200/20 ml-0 md:ml-auto my-auto h-auto p-4'>
-          <div className="heading flex text-2xl font-bold">
+          <div className="heading flex text-2xl font-semibold">
             <h1>🔒Free Tier(API-Based Hints)</h1>
           </div>
-          <div className='bulletspoints flex mt-4 p-1 text-sm'>
+          <div className='bulletspoints flex mt-4 p-1 text-sm text-white/70'>
             <ul className='list-disc pl-5 space-y-3'>
               <li>Uses third-party API (e.g., OpenAI) to provide hints.</li>
               <li>Limited usage per day (e.g., 3–5 hints).</li>
@@ -24,7 +24,7 @@ const Pricing = () => {
           </div>
         </div>
         <div className='mainpricecontent2 flex flex-col relative w-auto shadow-2xl bg-gradient-to-r from-cyan-100 via-blue-300 to-indigo-400 rounded-xl border border-blue-500/20 mr-0 md:mr-auto my-auto h-auto p-4'>
-          <div className="heading flex text-black text-2xl font-bold"> 
+          <div className="heading flex text-black text-2xl font-semibold"> 
             <h1>🔓 Paid Tier (Custom Trained Model)</h1>
           </div>
           <div className='IMPnotice px-2  absolute flex justify-center items-center top-7 right-10 bg-white/30 border border-black/20 py-1 rounded-md'>
