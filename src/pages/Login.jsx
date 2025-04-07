@@ -25,7 +25,7 @@ const Login = () => {
         <div className='flex flex-col justify-center flex-wrap gap-y-5'>
           <div className='heading-log'>
             <h2 className='text-2xl font-semibold font-pixelify mb-2'>Login</h2>
-            <h5 className='text-sm font-pixelify text-gray-500'>enter your email and password to login to your account</h5>
+            <h5 className='text-sm text-gray-500'>enter your email and password to login to your account</h5>
           </div>
           <div className='form-input'>
             <form name='usermail' method='post' onSubmit={handleSubmit}>
