@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-const Button = ({children , className , href , onClick , type= "button" }) => {
+const Button = ({children , className , href , onClick , type= "button" , disabled = false  }) => {
 
     const classes = `${className || ''} relative inline-flex items-center justify-center p-1`
   
