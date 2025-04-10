@@ -3,6 +3,13 @@ import Button from '../components/Buttons'
 import Squares from '../components/BgAnimate'
 
 const Pricing = () => {
+
+
+  const handleClick = () => {
+    console.log("user try to go to checkout")
+  }
+
+
   return (
     <div className='flex w-screen min-h-screen flex-col gap-5 md:gap-10 py-10 px-2 sm:px-4 md:px-10 lg:py-5 justify-center items-center'>
       <div className='bganimation absolute top-0 left-0 opacity-5'>
@@ -43,7 +50,7 @@ const Pricing = () => {
           </div>
           <div className="yourplan flex flex-col gap-y-2 items-start justify-start text-black mt-4 h-auto w-auto">
             <div className="userplan mt-1"><p className='text-base text-gray-700'>&nbsp;your current plan</p></div>
-            <Button className="w-24 h-10 rounded-full text-white/50 line-through bg-zinc-700">0$/month</Button>
+            <Button disabled className="w-24 h-10 rounded-full text-white/50 line-through bg-zinc-700" >0$/month</Button>
           </div>
         </div>
         <div className='mainpricecontent2 flex flex-col relative w-auto shadow-2xl bg-gradient-to-r from-cyan-100 via-blue-300 to-indigo-400 rounded-xl border border-blue-500/20 mr-0 md:mr-auto my-auto h-auto p-4 pt-20 md:y-10'>
@@ -65,7 +72,7 @@ const Pricing = () => {
           </div>
           <div className="yourplan flex flex-col gap-y-2 items-start justify-start text-black mt-4 h-auto w-auto">
             <div className="userplan mt-1"><p className='text-base text-gray-700'>&nbsp;Price are marked in USD</p></div>
-            <Button className="w-auto h-10 px-4 rounded-full bg-black hover:bg-black/90 text-white">4.99$/month</Button>
+            <Button className="w-auto h-10 px-4 rounded-full bg-black hover:bg-black/90 text-white" onClick={handleClick}>4.99$/month</Button>
           </div>
         </div>
       </div>
