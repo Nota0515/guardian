@@ -25,7 +25,7 @@ const Home = () => {
   const [isSidebar, setIsSidebar] = useState(false);
 
   return (
-    <div className='flex relative bg-gradient-radial from-black via-black to-blue-950/10 justify-center items-center h-screen w-screen'>
+    <div className='flex relative flex-row justify-center items-center h-full w-full'>
       <div className="topnavigation flex items-center justify-between fixed top-0 left-0 right-0 w-full mt-2 px-1">
         <div className="logbox flex items-center p-1">
           <img src='/logoimg.png' className='w-8 h-8' />
