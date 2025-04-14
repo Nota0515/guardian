@@ -7,7 +7,7 @@ import Pricing from "./pages/Pricing"
 const App = () => {
   return (
     <>
-      <div className="flex items-center justify-center w-screen min-h-screen bg-gradient-radial from-black via-black to-blue-600/10">
+      <div className="w-screen h-[100svh] bg-gradient-radial from-black via-black to-blue-600/10 overflow-hidden">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/pricing" element={<Pricing />} />
