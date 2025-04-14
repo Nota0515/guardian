@@ -25,8 +25,8 @@ const Home = () => {
   const [isSidebar, setIsSidebar] = useState(false);
 
   return (
-    <div className='flex relative flex-row justify-center items-center h-full w-full'>
-      <div className="topnavigation flex items-center justify-between fixed top-0 left-0 right-0 w-full mt-2 px-1">
+    <div className='flex relative flex-row items-center h-full w-full'>
+      <div className="topnavigation flex items-center justify-between fixed z-20 top-0 left-0 right-0 w-full mt-2 px-1">
         <div className="logbox flex items-center p-1">
           <img src='/logoimg.png' className='w-8 h-8' />
           <text className='text-lg font-pixelify '>Guardian</text>
@@ -47,8 +47,11 @@ const Home = () => {
           </div>
         </div>
       </div>
+      <div className={`sidebar ${isSidebar ? "w-0 overflow-hidden" : 'w-[16rem]'} transition-all duration-300 ease-in-out border border-l border-white/20 absolute md:static flex h-full `}></div>
+      <div className="mainarea h-full flex flex-1 justify-center items-center">
+        <h1 className='text-6xl'>HI Everyone how are you </h1>
+      </div>
     </div>
   )
 }
-
 export default Home
