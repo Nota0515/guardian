@@ -87,6 +87,11 @@ const Home = () => {
             </div>
             <div className='iconsuploads flex w-full justify-between pt-2'>
               <ImAttachment />
+              <div className="submitbtndiv">
+                <Button>
+                  
+                </Button>
+              </div>
             </div>
           </div>
         </div>
