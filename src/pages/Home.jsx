@@ -1,10 +1,29 @@
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import { useState } from 'react'
 import Button from '../components/Buttons'
 import Userinfotoggle from '../components/Userinfotoggle'
 import { GoSidebarCollapse, GoSidebarExpand } from "react-icons/go";
+import { ImAttachment } from "react-icons/im";
 
 const Home = () => {
+  const textArearef = useRef(null);
+
+  const adjustHeight = () => {
+    const el = textArearef.current;
+    if (!el) return;
+    el.style.height = "auto";
+    el.style.height = `${Math.min(el.scrollHeight, 300)}px`
+
+    if (el.scrollHeight > 300) {
+      el.style.height = "300px";
+      el.style.overflowY = "auto";
+    }
+  }
+
+  useEffect(() => {
+    adjustHeight();
+  }, []);
+
   const BtnClick = () => {
     if (!toogleInfo) {
       settToogleInfo(true);
@@ -15,9 +34,9 @@ const Home = () => {
   }
 
   const openSide = () => {
-    if(!isSidebar){
+    if (!isSidebar) {
       setIsSidebar(true)
-    }else{
+    } else {
       setIsSidebar(false)
     }
   }
@@ -48,8 +67,29 @@ const Home = () => {
         </div>
       </div>
       <div className={`sidebar ${isSidebar ? "w-0 overflow-hidden" : 'w-[16rem]'} transition-all duration-300 ease-in-out border border-l border-white/20 absolute md:static flex h-full `}></div>
-      <div className="mainarea h-full flex flex-1 justify-center items-center">
-        <h1 className='text-6xl'>HI Everyone how are you </h1>
+      <div className="mainarea h-full flex relative flex-col flex-1 justify-center items-center">
+        <div className="allcontent flex w-full h-full justify-center items-center flex-col p-2 pt-12">
+          <div className={`greeting flex w-fit mx-auto bg-gradient-to-r from-yellow-600 to-red-600 text-transparent bg-clip-text justify-center`}>
+            <h1 className='font-normal text-base md:text-3xl '>Just ask DSA-based plz</h1>
+          </div>
+        </div>
+        <div className='downcontent p-4 w-full'>
+          <div className="usertextarea flex flex-col relative items-center justify-center border border-white/20 rounded-lg w-full max-w-3xl min-w-[200px] p-2 mx-auto">
+            <div className='textArea flex w-full justify-center overflow-hidden '>
+              <textarea
+                ref={textArearef}
+                onInput={adjustHeight}
+                className="w-full max-w-3xl min-w-[200px] mx-auto text-base resize-none overflow-y-auto scrollbar-thin scrollbar-thumb-neutral-900 scrollbar-track-transparent
+                scrollbar-thumb-rounded-full focus:outline-none focus:ring-0 border-none border border-white/20 bg-transparent"
+                placeholder='get only hints and theoretical solution'
+                rows={1}
+              ></textarea>
+            </div>
+            <div className='iconsuploads flex w-full justify-between pt-2'>
+              <ImAttachment />
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   )
