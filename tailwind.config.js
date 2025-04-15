@@ -60,5 +60,7 @@ export default {
       'sm': '360px',
     }    
   },
-  plugins: [],
+  plugins: [
+    require('tailwind-scrollbar')
+  ],
 }
