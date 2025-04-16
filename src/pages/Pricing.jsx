@@ -11,8 +11,8 @@ const Pricing = () => {
 
 
   return (
-    <div className='flex w-screen min-h-screen flex-col gap-5 md:gap-10 py-10 px-2 sm:px-4 md:px-10 lg:py-5 justify-center items-center'>
-      <div className='bganimation absolute top-0 left-0 opacity-5'>
+    <div className='flex w-screen h-full flex-col gap-5 md:gap-10 py-10 px-2 sm:px-4 md:px-10 lg:py-5 justify-center items-center'>
+     { /*<div className='bganimation absolute top-0 left-0 opacity-5'>
         <Squares
           speed={0.5}
           squareSize={40}
@@ -20,7 +20,7 @@ const Pricing = () => {
           borderColor='#fff'
           hoverFillColor='#222'
         />
-      </div>
+      </div>*/}
       <div className='Headline flex flex-col items-center gap-2 mx-auto w-auto py-10'>
         <div className='Logotext flex gap-2'>
           <img
