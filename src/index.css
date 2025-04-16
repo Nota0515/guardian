@@ -11,7 +11,6 @@
 @layer base {
   body {
     @apply bg-zinc-950 text-n-1;
-    overflow-y: hidden;
   }
 
   /* Hide scrollbar for Webkit browsers (Chrome, Safari) */
