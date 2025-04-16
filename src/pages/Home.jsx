@@ -3,9 +3,18 @@ import { useState } from 'react'
 import Button from '../components/Buttons'
 import Userinfotoggle from '../components/Userinfotoggle'
 import { GoSidebarCollapse, GoSidebarExpand } from "react-icons/go";
+import { RiSendPlaneFill } from "react-icons/ri";
 import { ImAttachment } from "react-icons/im";
 
 const Home = () => {
+
+  const sendBtnClick = () => {
+    console.log("this btn is clicked")
+  }
+
+
+
+
   const textArearef = useRef(null);
 
   const adjustHeight = () => {
@@ -75,7 +84,7 @@ const Home = () => {
         </div>
         <div className='downcontent p-4 w-full'>
           <div className="usertextarea flex flex-col relative items-center justify-center border border-white/20 rounded-lg w-full max-w-3xl min-w-[200px] p-2 mx-auto">
-            <div className='textArea flex w-full justify-center overflow-hidden '>
+            <div className='textArea flex w-full justify-center overflow-hidden pt-1'>
               <textarea
                 ref={textArearef}
                 onInput={adjustHeight}
@@ -85,11 +94,11 @@ const Home = () => {
                 rows={1}
               ></textarea>
             </div>
-            <div className='iconsuploads flex w-full justify-between pt-2'>
+            <div className='iconsuploads flex w-full justify-between pt-2 items-center'>
               <ImAttachment />
-              <div className="submitbtndiv">
-                <Button>
-                  
+              <div className="submitbtndiv flex items-center justify-center rounded-md hover:bg-white/20">
+                <Button onClick={sendBtnClick}>
+                  <RiSendPlaneFill size={20} />
                 </Button>
               </div>
             </div>
