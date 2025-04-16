@@ -75,7 +75,7 @@ const Home = () => {
           </div>
         </div>
       </div>
-      <div className={`sidebar ${isSidebar ? "w-0 overflow-hidden" : 'w-[16rem]'} transition-all duration-300 ease-in-out border border-l border-white/20 absolute z-10 bg-black md:z-0 md:static flex h-full `}></div>
+      <div className={`sidebar ${isSidebar ? "w-[16rem]" : ' w-0 overflow-hidden'} transition-all duration-300 ease-in-out border border-l border-white/20 absolute z-10 bg-black md:z-0 md:static flex h-full `}></div>
       <div className="mainarea h-full flex relative flex-col flex-1 justify-center items-center">
         <div className="allcontent flex w-full h-full justify-center items-center flex-col p-2 pt-12">
           <div className={`greeting flex w-fit mx-auto bg-gradient-to-r from-yellow-600 to-red-600 text-transparent bg-clip-text justify-center`}>
