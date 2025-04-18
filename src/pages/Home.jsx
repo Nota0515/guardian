@@ -11,7 +11,10 @@ const Home = () => {
   const [text, setText] = useState("");
 
   const sendBtnClick = () => {
-    console.log("this btn is clicked")
+    if(text.trim()){
+      console.log("sending message of : " , text );
+      setText('');
+    }
   }
 
 
