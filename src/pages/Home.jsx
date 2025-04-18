@@ -38,22 +38,10 @@ const Home = () => {
     adjustHeight();
   }, []);
 
-  const BtnClick = () => {
-    if (!toogleInfo) {
-      settToogleInfo(true);
-    } else {
-      settToogleInfo(false);
-    }
-    console.log("yeh we have clicked the button")
-  }
+  const profileBtnClick = () => settToogleInfo(prev => !prev);
 
-  const openSide = () => {
-    if (!isSidebar) {
-      setIsSidebar(true)
-    } else {
-      setIsSidebar(false)
-    }
-  }
+  const openSide = () => setIsSidebar(prev => !prev);
+
   const [toogleInfo, settToogleInfo] = useState(false)
   const [isSidebar, setIsSidebar] = useState(false);
 
@@ -71,7 +59,7 @@ const Home = () => {
         </div>
         <div className="userinfo relative flex flex-col p-1">
           <div className="userlogo w-10 h-10">
-            <Button onClick={BtnClick}>
+            <Button onClick={profileBtnClick}>
               <img src='src\assets\tem111.png' className='object-cover rounded-full' />
             </Button>
           </div>
