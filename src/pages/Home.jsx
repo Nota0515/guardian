@@ -8,6 +8,8 @@ import { ImAttachment } from "react-icons/im";
 
 const Home = () => {
 
+  const [text, setText] = useState("");
+
   const sendBtnClick = () => {
     console.log("this btn is clicked")
   }
@@ -21,10 +23,10 @@ const Home = () => {
     const el = textArearef.current;
     if (!el) return;
     el.style.height = "auto";
-    el.style.height = `${Math.min(el.scrollHeight, 300)}px`
+    el.style.height = `${Math.min(el.scrollHeight, 250)}px`
 
-    if (el.scrollHeight > 300) {
-      el.style.height = "300px";
+    if (el.scrollHeight > 250) {
+      el.style.height = "250px";
       el.style.overflowY = "auto";
     }
   }
@@ -93,11 +95,12 @@ const Home = () => {
                 scrollbar-thumb-rounded-full focus:outline-none focus:ring-0 border-none border border-white/20 bg-transparent"
                 placeholder='get only hints and theoretical solution'
                 rows={1}
+                onChange={(e) => setText(e.target.value)}
               ></textarea>
             </div>
-            <div className='iconsuploads flex w-full justify-between pt-2 items-center'>
+            <div title='upload' className='iconsuploads flex w-full justify-between pt-2  items-center'>
               <ImAttachment />
-              <div className="submitbtndiv flex items-center justify-center rounded-md hover:bg-white/20">
+              <div title='send' className="submitbtndiv flex items-center justify-center rounded-md hover:bg-white/20">
                 <Button onClick={sendBtnClick}>
                   <RiSendPlaneFill size={20} />
                 </Button>
