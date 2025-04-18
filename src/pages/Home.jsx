@@ -17,7 +17,12 @@ const Home = () => {
     }
   }
 
-
+  const handlekeyDown = (e) => {
+    if(e.key === "Enter" && !e.shiftKey){
+      e.preventDefault();
+      sendBtnClick();
+    }
+  }
 
 
   const textArearef = useRef(null);
@@ -36,7 +41,7 @@ const Home = () => {
 
   useEffect(() => {
     adjustHeight();
-  }, []);
+  }, [text]);
 
   const profileBtnClick = () => settToogleInfo(prev => !prev);
 
@@ -82,6 +87,8 @@ const Home = () => {
               <textarea
                 ref={textArearef}
                 onInput={adjustHeight}
+                onKeyDown={handlekeyDown}
+                value={text}
                 className="w-full max-w-3xl min-w-[200px] mx-auto text-base resize-none overflow-y-auto scrollbar-thin scrollbar-thumb-neutral-900 scrollbar-track-transparent
                 scrollbar-thumb-rounded-full focus:outline-none focus:ring-0 border-none border border-white/20 bg-transparent"
                 placeholder='get only hints and theoretical solution'
