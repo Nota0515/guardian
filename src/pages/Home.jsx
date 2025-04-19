@@ -51,7 +51,7 @@ const Home = () => {
   const [isSidebar, setIsSidebar] = useState(false);
 
   return (
-    <div className='flex relative min-h-screen w-full'>
+    <div className='flex relative min-h-[100dvh] w-full'>
       <div className="topnavigation flex items-center justify-between fixed z-40 top-0 left-0 right-0 w-full mt-2 px-1">
         <div className="logbox flex items-center p-1">
           <img src='/logoimg.png' className='w-8 h-8' />
