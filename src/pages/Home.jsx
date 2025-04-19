@@ -51,7 +51,7 @@ const Home = () => {
   const [isSidebar, setIsSidebar] = useState(false);
 
   return (
-    <div className='flex relative flex-row items-center h-screen w-full'>
+    <div className='flex relative min-h-screen w-full'>
       <div className="topnavigation flex items-center justify-between fixed z-40 top-0 left-0 right-0 w-full mt-2 px-1">
         <div className="logbox flex items-center p-1">
           <img src='/logoimg.png' className='w-8 h-8' />
@@ -73,9 +73,9 @@ const Home = () => {
           </div>
         </div>
       </div>
-      {/*<div className='w-full h-full bg-black/60 fixed z-20'></div>*/}
+      {isSidebar && <div className='w-full h-full bg-black/80 fixed z-10 md:hidden'></div>}
       <div className={`sidebar ${isSidebar ? "w-[16rem]" : ' w-0 overflow-hidden'} transition-all duration-300 ease-in-out border border-l border-white/20 absolute z-10 bg-black md:z-0 md:static flex h-full `}></div>
-      <div className="mainarea h-full flex relative flex-col flex-1 justify-center items-center">
+      <div className="mainarea flex relative flex-col flex-1 justify-center items-center">
         <div className="allcontent flex w-full h-full justify-center items-center flex-col p-2 pt-12">
           <div className={`greeting flex w-fit mx-auto bg-gradient-to-r from-yellow-600 to-red-600 text-transparent bg-clip-text justify-center`}>
             <h1 className='font-normal text-base md:text-3xl '>Just ask DSA-based plz</h1>
