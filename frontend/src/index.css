@@ -1,0 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=Doto:wght@900&family=Pixelify+Sans:wght@400..700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  scroll-behavior: smooth;
+}
+
+@layer base {
+  body {
+    @apply bg-zinc-950 text-n-1;
+  }
+
+  /* Hide scrollbar for Webkit browsers (Chrome, Safari) */
+  body::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  height: 100%;
+}
+
