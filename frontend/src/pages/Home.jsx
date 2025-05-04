@@ -10,7 +10,7 @@ const Home = () => {
   const [file, setFile] = useState(null);
   const [text, setText] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [toogleInfo, setToggleInfo] = useState(false);
+  const [toggleInfo, setToggleInfo] = useState(false);
   const [isSidebar, setIsSidebar] = useState(false);
   const [sidebarContent, setSidebarContent] = useState(true);
   const [isUserscrolling , setIsUserscrolling] = useState(false);
@@ -136,7 +136,7 @@ const Home = () => {
               <img src='src\assets\tem111.png' className='object-cover rounded-full' alt="User" />
             </Button>
           </div>
-          <div className={`userinfotogle ${toogleInfo ? "" : "hidden"} absolute top-10 right-10`}>
+          <div className={`userinfotogle ${toggleInfo ? "" : "hidden"} absolute top-10 right-10`}>
             <Userinfotoggle />
           </div>
         </div>
