@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import Button from '../components/Buttons';
 import Userinfotoggle from '../components/Userinfotoggle';
 import { GoSidebarCollapse, GoSidebarExpand } from "react-icons/go";
@@ -94,12 +94,12 @@ const Home = () => {
     }
   };
 
-  const handleKeyDown = (e) => {
+  const handleKeyDown = useCallback((e) => {
     if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
       sendMessage();
     }
-  };
+  },[sendMessage]);
 
   const adjustHeight = () => {
     const el = textAreaRef.current;
