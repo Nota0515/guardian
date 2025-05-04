@@ -45,14 +45,12 @@ const Home = () => {
   const toggleSidebar = () => {
     if (isSidebar) {
       setSidebarContent(false);
-      setTimeout(() => {
-        setIsSidebar(false);
-      }, 50); // Match transition duration
-    } else {
+      setIsSidebar(false);
+      }
+    else{
+      setSidebarContent(true);
       setIsSidebar(true);
-      setTimeout(() => {
-        setSidebarContent(true);
-      }, 300 );
+     
     }
   };
 
@@ -147,7 +145,7 @@ const Home = () => {
       {isSidebar && <div className='w-full h-full bg-black/80 fixed z-10 md:hidden' onClick={toggleSidebar}></div>}
       
       {/* Sidebar */}
-      <div className={`sidebar ${isSidebar ? "w-[16rem]" : 'w-0 overflow-hidden'} flex min-h-full transition-all duration-300 ease-in-out border-r border-white/20 absolute z-20 bg-black md:z-0 md:static`}>
+      <div className={`sidebar ${isSidebar ? "translate-x-0 w-64" : '-translate-x-full'} flex min-h-full transition-all duration-500 ease-in-out border-r border-white/20 absolute z-20 bg-black md:z-0 md:static`}>
         {sidebarContent && (
           <div className="sidebar-content w-full pt-16 px-2">
             <h2 className="text-xl font-medium mb-4">Recent Chats</h2>
@@ -165,7 +163,7 @@ const Home = () => {
       </div>
       
       {/* Main Content Area */}
-      <div className="mainarea flex relative flex-col flex-1 justify-between items-center overflow-hidden">
+      <div className="mainarea flex relative flex-col flex-1 justify-between items-center overflow-hidden ">
         <div ref={contentRef} className="allcontent absolute inset-x-0
              top-16
              bottom-24
