@@ -1,12 +1,18 @@
-const http =  require('http')
+const express = require('express')
+const app = express();
 
-const server = http.createServer((req, res)=>{
-    if(req.url == "/about"){
-        res.end("this page is about to end")
-    }
-    if(req.url=='/profile'){
-        res.end("this is the profile page")
-    }
+
+app.get("/", (req , res)=>{
+    const value = res.sendDate;
+    res.send('hi this is server',value)
 })
 
-server.listen(3000)
+app.get('/signup' , (req , res)=>{
+    res.send("this is it")
+})
+
+app.get("/login" , (req,res)=>{
+    res.send("this is login page")
+})
+
+app.listen(3000)
