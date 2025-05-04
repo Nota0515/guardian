@@ -3,6 +3,7 @@ import Button from '../components/Buttons';
 import Userinfotoggle from '../components/Userinfotoggle';
 import { GoSidebarCollapse, GoSidebarExpand } from "react-icons/go";
 import { RiSendPlaneFill } from "react-icons/ri";
+import userImage from '../assets/tem111.png'
 import Inputfeild from '../components/Inputfeild';
 
 const Home = () => {
@@ -133,7 +134,7 @@ const Home = () => {
         <div className="userinfo relative flex flex-col p-1">
           <div className="userlogo w-10 h-10">
             <Button onClick={() => setToggleInfo(prev => !prev)}>
-              <img src='/src/assets/tem111.png' className='object-cover rounded-full' alt="User" />
+              <img src={userImage} className='object-cover rounded-full' alt="User" />
             </Button>
           </div>
           <div className={`userinfotogle ${toggleInfo ? "" : "hidden"} absolute top-10 right-10`}>
