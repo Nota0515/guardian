@@ -133,7 +133,7 @@ const Home = () => {
         <div className="userinfo relative flex flex-col p-1">
           <div className="userlogo w-10 h-10">
             <Button onClick={() => setToggleInfo(prev => !prev)}>
-              <img src='src\assets\tem111.png' className='object-cover rounded-full' alt="User" />
+              <img src='/src/assets/tem111.png' className='object-cover rounded-full' alt="User" />
             </Button>
           </div>
           <div className={`userinfotogle ${toggleInfo ? "" : "hidden"} absolute top-10 right-10`}>
