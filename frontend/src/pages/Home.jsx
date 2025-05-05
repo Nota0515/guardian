@@ -120,7 +120,7 @@ const Home = () => {
   return (
     <div className='flex relative min-h-[100dvh] w-full overflow-hidden'>
       {/* Top Navigation */}
-      <div className="topnavigation flex items-center justify-between fixed md:z-40 top-0 left-0 right-0 w-full mt-2 px-1">
+      <div className="topnavigation flex items-center justify-between fixed z-10 md:z-40 top-0 left-0 right-0 w-full mt-2 px-1">
         <div className="logbox flex items-center p-1">
           <img src='/logoimg.png' className='w-8 h-8' alt="Logo" />
           <span className='text-lg font-pixelify'>Guardian</span>
