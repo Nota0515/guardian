@@ -3,6 +3,7 @@ import Button from '../components/Buttons';
 import Userinfotoggle from '../components/Userinfotoggle';
 import { GoSidebarCollapse, GoSidebarExpand } from "react-icons/go";
 import { RiSendPlaneFill } from "react-icons/ri";
+import { RxCross2 } from "react-icons/rx";
 import userImage from '../assets/tem111.png'
 import Inputfeild from '../components/Inputfeild';
 
@@ -119,7 +120,7 @@ const Home = () => {
   return (
     <div className='flex relative min-h-[100dvh] w-full overflow-hidden'>
       {/* Top Navigation */}
-      <div className="topnavigation flex items-center justify-between fixed z-40 top-0 left-0 right-0 w-full mt-2 px-1">
+      <div className="topnavigation flex items-center justify-between fixed md:z-40 top-0 left-0 right-0 w-full mt-2 px-1">
         <div className="logbox flex items-center p-1">
           <img src='/logoimg.png' className='w-8 h-8' alt="Logo" />
           <span className='text-lg font-pixelify'>Guardian</span>
@@ -142,12 +143,15 @@ const Home = () => {
       </div>
 
       {/* Mobile Sidebar Overlay */}
-      {isSidebar && <div className='w-full h-full bg-black/80 fixed z-10 md:hidden' onClick={toggleSidebar}></div>}
+      {isSidebar && <div className='w-full h-full bg-black/80 fixed z-10 md:hidden'></div>}
       
       {/* Sidebar */}
       <div className={`sidebar ${isSidebar ? "translate-x-0 w-64" : '-translate-x-full'} flex min-h-full transition-all duration-500 ease-in-out border-r border-white/20 absolute z-20 bg-black md:z-0 md:static`}>
         {sidebarContent && (
           <div className="sidebar-content w-full pt-16 px-2">
+            <div className='crossicon absolute top-5 right-5  md:hidden' title='close'>
+              <Button onClick={toggleSidebar}><RxCross2 /></Button>
+            </div>
             <h2 className="text-xl font-medium mb-4">Recent Chats</h2>
             <div className="chat-list space-y-2">
               {/* Add your chat history items here */}
@@ -163,7 +167,7 @@ const Home = () => {
       </div>
       
       {/* Main Content Area */}
-      <div className="mainarea flex relative flex-col flex-1 justify-between items-center overflow-hidden ">
+      <div className="mainarea flex relative flex-col flex-1 mt-16 justify-between items-center overflow-hidden ">
         <div ref={contentRef} className="allcontent absolute inset-x-0
              top-16
              bottom-24
