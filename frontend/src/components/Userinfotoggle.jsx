@@ -23,13 +23,13 @@ const Userinfotoggle = () => {
                 <span><CiBadgeDollar /></span><p>UpgradePro</p>
               </Link>
             </div>
-            <div className='tempmode flex flex-1 pr-1 -mt-1 items-center hover:bg-zinc-800 rounded-md overflow-hidden'>
+            <div className='tempmode flex flex-1 pr-1 -mt-1 items-center active:bg-blue-900/20 lg:hover:bg-zinc-800 rounded-md overflow-hidden'>
               <Button onClick={BtnClicked}>
                 <span><PiGhostLight /></span>
                 <p>Temp</p>
               </Button>
             </div>
-            <div className='logoutbutton flex flex-1 pr-1 -mt-1 items-center hover:bg-zinc-800 rounded-md overflow-hidden'>
+            <div className='logoutbutton flex flex-1 pr-1 -mt-1 items-center active:bg-blue-900/20  lg:hover:bg-zinc-800 rounded-md overflow-hidden'>
               <Button onClick={BtnClicked}>
                 <span><CiLogout /></span>
                 <p>logout</p>
