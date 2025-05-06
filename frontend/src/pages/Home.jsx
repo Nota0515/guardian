@@ -167,7 +167,7 @@ const Home = () => {
       </div>
       
       {/* Main Content Area */}
-      <div className="mainarea flex relative flex-col flex-1 mt-16 justify-between items-center overflow-hidden ">
+      <div className="mainarea flex relative flex-col flex-1 justify-between items-center overflow-hidden ">
         <div ref={contentRef} className="allcontent absolute inset-x-0
              top-16
              bottom-24
@@ -229,7 +229,7 @@ const Home = () => {
         </div>
         
         {/* Input Area */}
-        <div className='downcontent fixed bottom-0 p-4 w-full mx-auto bg-gradient-to-t from-black via-black to-transparent'>
+        <div className='downcontent absolute bottom-0 p-4 w-full mx-auto bg-gradient-to-t from-black via-black to-transparent'>
           <div className="usertextarea flex flex-col relative items-center justify-center border border-white/20 rounded-xl w-full max-w-3xl min-w-[200px] p-2 mx-auto bg-black">
             <div className='textArea flex w-full justify-center overflow-hidden pt-1 px-2'>
               <textarea
