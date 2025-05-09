@@ -1,14 +1,31 @@
 const express = require('express')
 const cors = require("cors")
 const dotenv = require('dotenv')
+const route = require('./routes/auths')
 
 dotenv.config();
 const app = express();
+//first builtinmiddleware
 app.use(cors());
+//second builtinmiddleware
 app.use(express.json());
+/*third custom middleware;
+const meramiddleware = function (req , res ,next){
+    console.log("this is my first custum middleware");
+    next();
+}*/
+//app.use(meramiddleware);
 
-app.use('/api/auth' , Authroutes);
-app.use('/api/protected' , protectedRoutes);
+//app.use('/api/auth' , Authroutes);
+//app.use('/api/protected' , protectedRoutes);
+
+app.use('/api', route)
+
+app.get('/' , (req,res)=>{
+    console.log(req.body);
+    console.log("sare middleware chele including merawalamiddleware")
+    res.send("good")
+})
 
 const Port = process.env.PORT || 5000 ;
 
