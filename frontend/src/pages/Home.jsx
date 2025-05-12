@@ -146,7 +146,7 @@ const Home = () => {
       {isSidebar && <div className='w-full h-full bg-black/80 fixed z-10 md:hidden'></div>}
       
       {/* Sidebar */}
-      <div className={`sidebar ${isSidebar ? "translate-x-0 w-64" : '-translate-x-full'} flex min-h-full transition-all duration-500 ease-in-out border-r border-white/20 absolute z-20 bg-black md:z-0 md:static`}>
+      <div className={`sidebar ${isSidebar ? "translate-x-0 w-64" : '-translate-x-full w-0'} flex min-h-full transition-all duration-500 ease-in-out border-r border-white/20 absolute z-20 bg-black md:z-0 md:static`}>
         {sidebarContent && (
           <div className="sidebar-content w-full pt-16 px-2">
             <div className='crossicon absolute top-5 right-5  md:hidden' title='close'>
