@@ -22,6 +22,15 @@ exports.signup = async (req, res) => {
 
 //existing user authentication
 exports.login = async (req, res) => {
-
-}
+    const {email  , password} = req.body ;
+    try {
+        const user = User.findOne({email});
+        if( !user || !(await user.matchPassword(password)) ){
+            return res.status(401).json({message:"Invalid Credentials"})
+        }
+        res.json({TOKEN : generateToken(user._id) })
+    } catch (error) {
+        res.status(501).json({message : "server error"})
+    }
+};
 
