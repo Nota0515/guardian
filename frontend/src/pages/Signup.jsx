@@ -1,17 +1,20 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import Button from '../components/Buttons'
 import { useEffect, } from 'react';
-import { Link } from 'react-router-dom';
+import API from '../api/index';
+import { Link , useNavigate } from 'react-router-dom';
 
 const Signup = () => {
 
   const [createPassword , setCreatePassword] = useState('');
   const [confirmPassword , setConfirmPassword] = useState('');
   const [ error , setError ] = useState('');
+  const [email , setEmail] = useState('');
   const [emailerror, setEmailerror] = useState('');
   const [passwordError, setPasswordError] = useState('');
+  const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const formdata = new FormData(e.target);
     const email = formdata.get('email');
@@ -38,6 +41,16 @@ const Signup = () => {
       return;
     }
 
+    try {
+      const res = await API.post('/auth/signup' , {
+        email,
+        password: createPassword
+      });
+      localStorage.setItem('token' , res.data.token)
+      navigate('/');
+    } catch (err) {
+      alert(err.response?.data?.message || 'Signup failed')
+    }
     setError('');
     console.log('form submitted sucessfully')
 
@@ -68,6 +81,7 @@ const Signup = () => {
                   name='email'
                   id="email"
                   placeholder='you@example.com'
+                  onChange={(e)=>setEmail(e.target.value)}
                   className="mt-1 block w-full p-2 bg-zinc-900 700 border border-gray-300/20 rounded-md"
                 />
                 {emailerror && <p className="text-red-900 text-sm ">{emailerror}</p>}
