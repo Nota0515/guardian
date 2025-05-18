@@ -1,12 +1,23 @@
-import React from 'react'
 import Button from '../components/Buttons'
-import { useEffect, } from 'react';
-import { Link } from 'react-router-dom';
+import { useEffect, useState, } from 'react';
+import { Link , useNavigate } from 'react-router-dom';
+import API from '../api/index';
 
 const Login = () => {
+  const [email, setEmail] = useState('');
+  const [password , setPassword] = useState('');
+  const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    try {
+      const res = await API.post('/auth/login' , {email , password})
+      localStorage.setItem('token' , res.data.token ); // this will store the jwt token to frontend client in localstorage of browser
+      navigate('/') // after succesfull login this will redirect to the main dashboard
+    } catch (err) {
+      alert(err.response?.data?.message || "login failed")
+      console.error(err);
+    }
     console.log("the Button was clicked")
   };
 
@@ -35,6 +46,7 @@ const Login = () => {
                   type="email"
                   id="email"
                   placeholder='you@example.com'
+                  onChange={(e)=>setEmail(e.target.value)}
                   className="mt-1 block w-full p-2 bg-zinc-900 700 border border-gray-300/20 rounded-md"
                 />
               </div>
@@ -43,6 +55,7 @@ const Login = () => {
                 <input
                   type='password'
                   id="password"
+                  onChange={(e)=>setEmail(e.target.value)}
                   className='mt-1 block w-full p-2 bg-zinc-900 700 border border-gray-300/20 rounded-md'
                 />
               </div>
