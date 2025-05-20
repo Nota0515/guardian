@@ -3,7 +3,9 @@ const User = require('../models/User');
 
 //lets generate some token 
 const generateToken = (id) => {
-    return jwt.sign({ id }, process.env.JWT_SECRET, process.env.JWT_EXPIRES_IN)
+    return jwt.sign({ id }, process.env.JWT_SECRET, {
+        expiresIn: process.env.JWT_EXPIRES_IN
+    });
 }
 
 //new user authenticaltion
@@ -15,7 +17,7 @@ exports.signup = async (req, res) => {
         const user = await User.create({email , password});
         res.status(201).json({token : generateToken(user._id)});
     } catch (error) {
-        res.status(500).json({message:"server error"});
+        res.status(500).json({message:"server error" , error: error.message});
     }
 
 };
@@ -24,11 +26,11 @@ exports.signup = async (req, res) => {
 exports.login = async (req, res) => {
     const {email  , password} = req.body ;
     try {
-        const user = User.findOne({email});
+        const user = await User.findOne({email});
         if( !user || !(await user.matchPassword(password)) ){
             return res.status(401).json({message:"Invalid Credentials"})
         }
-        res.json({TOKEN : generateToken(user._id) })
+        res.json({token : generateToken(user._id) })
     } catch (error) {
         res.status(501).json({message : "server error"})
     }
