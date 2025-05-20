@@ -1,6 +1,6 @@
+const dotenv = require('dotenv')
 const express = require('express')
 const cors = require("cors")
-const dotenv = require('dotenv')
 const route = require('./routes/authRoutes')
 
 dotenv.config();
@@ -19,13 +19,13 @@ const meramiddleware = function (req , res ,next){
 //app.use('/api/auth' , Authroutes);
 //app.use('/api/protected' , protectedRoutes);
 
-app.use('/api', route)
+app.use('/api', route);
 
 app.get('/' , (req,res)=>{
     console.log(req.body);
     console.log("sare middleware chele including merawalamiddleware")
     res.send("good")
-})
+});
 
 const Port = process.env.PORT || 5000 ;
 
