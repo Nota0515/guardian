@@ -42,7 +42,7 @@ const Signup = () => {
     }
 
     try {
-      const res = await API.post('/auth/signup' , {
+      const res = await API.post('/signup' , {
         email,
         password: createPassword
       });
