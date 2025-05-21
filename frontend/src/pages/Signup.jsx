@@ -15,11 +15,8 @@ const Signup = () => {
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
+    console.log('form submitted')
     e.preventDefault();
-    const formdata = new FormData(e.target);
-    const email = formdata.get('email');
-    const password = formdata.get('createPassword');
-    const confirmPassword = formdata.get('confirmPassword');
     const emailregex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     /* 1st we will check the valid email */
@@ -29,7 +26,7 @@ const Signup = () => {
     }
 
 
-    if (password.length < 8){
+    if (createPassword.length < 8){
       setPasswordError("password must be atleast be 8 character long")
       return;
     }else{
@@ -50,10 +47,8 @@ const Signup = () => {
       navigate('/');
     } catch (err) {
       alert(err.response?.data?.message || 'Signup failed')
+      {err && <p className="text-red-600 text-sm" >{err}</p>}
     }
-    setError('');
-    console.log('form submitted sucessfully')
-
   };
 
   useEffect(() => {
