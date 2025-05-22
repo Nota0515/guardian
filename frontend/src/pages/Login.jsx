@@ -11,7 +11,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await API.post('/auth/login' , {email , password})
+      const res = await API.post('/login' , {email , password})
       localStorage.setItem('token' , res.data.token ); // this will store the jwt token to frontend client in localstorage of browser
       navigate('/') // after succesfull login this will redirect to the main dashboard
     } catch (err) {
@@ -55,7 +55,7 @@ const Login = () => {
                 <input
                   type='password'
                   id="password"
-                  onChange={(e)=>setEmail(e.target.value)}
+                  onChange={(e)=>setPassword(e.target.value)}
                   className='mt-1 block w-full p-2 bg-zinc-900 700 border border-gray-300/20 rounded-md'
                 />
               </div>
