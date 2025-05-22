@@ -18,8 +18,8 @@ UserSchema.pre('save',async function (next){
 
 
 //entered passward compare kero with the og passward 
-UserSchema.methods.matchPassword = function (entered){
-    return bcrypt.compare(entered, this.password )
+UserSchema.methods.matchPassword = async function (entered){
+    return await bcrypt.compare(entered, this.password )
 }
 
 module.exports = mongoose.model("User", UserSchema);
