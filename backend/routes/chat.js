@@ -1,4 +1,4 @@
-const { generateChat } = require('../service/geminiChat');
+const  generateChat  = require('../service/geminiChat');
 const express = require('express');
 const router = express.Router();
 
