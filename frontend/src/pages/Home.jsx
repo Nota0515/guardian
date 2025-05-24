@@ -14,7 +14,7 @@ const Home = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [toggleInfo, setToggleInfo] = useState(false);
   const [isSidebar, setIsSidebar] = useState(false);
-  const [sidebarContent, setSidebarContent] = useState(true);
+  const [sidebarContent, setSidebarContent] = useState(false);
   const [isUserscrolling , setIsUserscrolling] = useState(false);
   
   const messagesEndRef = useRef();
@@ -146,9 +146,9 @@ const Home = () => {
       {isSidebar && <div className='w-full h-full bg-black/80 fixed z-10 md:hidden'></div>}
       
       {/* Sidebar */}
-      <div className={`sidebar ${isSidebar ? "translate-x-0 w-64" : '-translate-x-full w-0'} flex min-h-full transition-all duration-500 ease-in-out border-r border-white/20 absolute z-20 bg-black md:z-0 md:static`}>
+      <div className={`sidebar ${isSidebar ? "translate-x-0" : '-translate-x-full'} flex min-h-full overflow-hidden transition-all duration-500 ease-in-out border-r border-white/20 absolute z-20 bg-black md:z-0 md:static`}>
         {sidebarContent && (
-          <div className="sidebar-content w-full pt-16 px-2">
+          <div className="sidebar-content w-64 pt-16 px-2">
             <div className='crossicon absolute top-5 right-5  md:hidden' title='close'>
               <Button onClick={toggleSidebar}><RxCross2 /></Button>
             </div>
