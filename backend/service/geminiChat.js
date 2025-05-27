@@ -1,21 +1,32 @@
-const { GoogleGenerativeAI } = require('@google/generative-ai');
+const axios = require('axios');
 require('dotenv').config();
 
-const apikeyG = process.env.GEMINI_API
-const genAi = new GoogleGenerativeAI(apikeyG);
+const apikeyG = process.env.MODEL_API ;
 
 const generateChat = async (prompt) => {
     try {
         console.log(prompt)
-        const model = genAi.getGenerativeModel({ model: 'gemini-2.5-pro-preview-05-06' });
-        const result = await model.generateContent(prompt);
-        const response = await result.response;
-        return response.text();
+        const response = await axios.post(
+            'https://openrouter.ai/api/v1/chat/completions',
+            {
+                //models aur prompt
+                model: 'mistralai/mistral-7b-instruct:free',
+                message: [{role:"" , content: prompt}],
+            } , 
+            {
+                //req ke sath req.header
+                headers : {
+                    "Authorization" : `Bearer ${apikeyG}`,
+                    "Content-Type" : 'application/json',
+                } 
+            }
+        );
+
+        return response.data.choices[0].message.content;
     } catch (error) {
-        if(error.status === 429){
-            throw new Error ("Quata exceeed . wait and try later.")
-        }
-        throw error ;   
+        console.log(error);
+        throw error ;
+        return "error occur in genration"
     }
 }
 
