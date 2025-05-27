@@ -11,7 +11,7 @@ const generateChat = async (prompt) => {
             {
                 //models aur prompt
                 model: 'mistralai/mistral-7b-instruct:free',
-                message: [{role:"" , content: prompt}],
+                messages: [{role:"user" , content: prompt}],
             } , 
             {
                 //req ke sath req.header
