@@ -3,6 +3,7 @@ const express = require('express')
 const cors = require("cors")
 const connectDB = require('./config/db')
 const route = require('./routes/authRoutes')
+const chatRoutes = require('./routes/chatRoutes')
 
 dotenv.config();
 const app = express();
@@ -22,7 +23,7 @@ const meramiddleware = function (req , res ,next){
 //app.use('/api/protected' , protectedRoutes);
 
 app.use('/api', route);
-app.use('/api' , require('./routes/chatRoutes'));
+app.use('/api' , chatRoutes);
 
 app.get('/' , (req,res)=>{
     console.log(req.body);
