@@ -22,7 +22,7 @@ const meramiddleware = function (req , res ,next){
 //app.use('/api/protected' , protectedRoutes);
 
 app.use('/api', route);
-app.use('/api' , require('./routes/chat'));
+app.use('/api' , require('./routes/chatRoutes'));
 
 app.get('/' , (req,res)=>{
     console.log(req.body);
