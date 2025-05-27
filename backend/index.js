@@ -26,8 +26,6 @@ app.use('/api', route);
 app.use('/api' , chatRoutes);
 
 app.get('/' , (req,res)=>{
-    console.log(req.body);
-    console.log("sare middleware chele including merawalamiddleware")
     res.send("good")
 });
 
