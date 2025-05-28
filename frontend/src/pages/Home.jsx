@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
+import {API } from '../api/index'
 import Button from '../components/Buttons';
 import Userinfotoggle from '../components/Userinfotoggle';
 import { GoSidebarCollapse, GoSidebarExpand } from "react-icons/go";
@@ -65,20 +66,14 @@ const Home = () => {
     // Clear input
     setText('');
     setFile(null);
-    
     // Simulate AI response
     setIsLoading(true);
     
     try {
-      // Replace with actual API call to your AI service
-      // const response = await fetchAIResponse(text, file);
-      
-      // Simulating API delay
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
+      const res = API.post('/chat' , {prompt : text});
       const aiResponse = { 
         role: 'assistant', 
-        content: `This is a simulated response to: "${text}"` 
+        content: res.data.response 
       };
       
       setMessages(prev => [...prev, aiResponse]);
