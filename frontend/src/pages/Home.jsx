@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import {API } from '../api/index'
+import  API  from '../api/index'
 import Button from '../components/Buttons';
 import Userinfotoggle from '../components/Userinfotoggle';
 import { GoSidebarCollapse, GoSidebarExpand } from "react-icons/go";
@@ -66,11 +66,10 @@ const Home = () => {
     // Clear input
     setText('');
     setFile(null);
-    // Simulate AI response
     setIsLoading(true);
     
     try {
-      const res = API.post('/chat' , {prompt : text});
+      const res = await API.post('/chat' , {prompt : text});
       const aiResponse = { 
         role: 'assistant', 
         content: res.data.response 
