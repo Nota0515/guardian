@@ -69,7 +69,7 @@ const Home = () => {
     setIsLoading(true);
     
     try {
-      const res = await API.post('/chat' , {prompt : text});
+      const res = await API.post('/chat' , {prompt : messages});
       const aiResponse = { 
         role: 'assistant', 
         content: res.data.response 
