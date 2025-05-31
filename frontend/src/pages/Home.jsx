@@ -61,7 +61,8 @@ const Home = () => {
     
     // Add user message
     const userMessage = { role: 'user', content: text, file: file };
-    setMessages(prev => [...prev, userMessage]);
+    const updateMessage = [...messages , userMessage];
+    setMessages(updateMessage);
     
     // Clear input
     setText('');
@@ -69,7 +70,7 @@ const Home = () => {
     setIsLoading(true);
     
     try {
-      const res = await API.post('/chat' , {prompt : messages});
+      const res = await API.post('/chat' , {messages: updateMessage});
       const aiResponse = { 
         role: 'assistant', 
         content: res.data.response 
