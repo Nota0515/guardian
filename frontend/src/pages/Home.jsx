@@ -70,7 +70,7 @@ const Home = () => {
     setIsLoading(true);
     
     try {
-      const res = await API.post('/chat' , {messages: updateMessage});
+      const res = await API.post('/conversation' , {messages: updateMessage});
       const aiResponse = { 
         role: 'assistant', 
         content: res.data.response 
