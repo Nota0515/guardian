@@ -7,6 +7,6 @@ const { protect } = require('../middleware/authmiddleware')
 
 // /api/chat
 
-router.post('/chat' ,  protect , handleChat );
+router.post('/conversation' ,  protect , handleChat );
 
 module.exports = router ; 
