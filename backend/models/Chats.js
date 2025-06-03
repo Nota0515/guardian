@@ -9,7 +9,7 @@ const MessageSchema = new mongoose.Schema({
 
 const chatSchemas = new mongoose.Schema({
     user : { type:mongoose.Schema.Types.ObjectId , ref: 'User' , required: true },
-    title : {type: String , required: true},
+    title : {type: String , required: true, default: "new problem"},
     messages : [MessageSchema],
     updatedAt : {type: Date , default: Date.now}
 });
