@@ -1,15 +1,15 @@
 const mongoose = require('mongoose');
 
 const MessageSchema = new mongoose.Schema({
-    role : {type:String , require:true},
-    content : {type:String , require: true},
+    role : { type:String , required:true},
+    content : {type:String , required: true},
     timeStamp : { type: Date , default:Date.now}
 })
 
 
 const chatSchemas = new mongoose.Schema({
-    user : { type:mongoose.Schema.Types.ObjectId , ref: 'User' , require: true },
-    title : {type: String , require: true},
+    user : { type:mongoose.Schema.Types.ObjectId , ref: 'User' , required: true },
+    title : {type: String , required: true},
     messages : [MessageSchema],
     updatedAt : {type: Date , default: Date.now}
 });
