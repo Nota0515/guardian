@@ -44,3 +44,6 @@ router.post('/api/chats' , protect , async (req , res )=>{
             res.status(500).json({error : `cannot create cause ${error}` })
         }
 });
+
+
+module.exports = router;
