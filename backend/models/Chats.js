@@ -7,13 +7,13 @@ const MessageSchema = new mongoose.Schema({
 })
 
 
-const chatSchemas = new mongoose.Schema({
+const chatSchema = new mongoose.Schema({
     user : { type:mongoose.Schema.Types.ObjectId , ref: 'User' , required: true },
     title : {type: String , required: true, default: "new problem"},
     messages : [MessageSchema],
     updatedAt : {type: Date , default: Date.now}
 });
 
-chatSchemas.index({user: 1});
+chatSchema.index({user: 1});
 
 module.exports = mongoose.model('Chats' , chatSchemas );  
