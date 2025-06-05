@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import  API  from '../api/index'
+import API from '../api/index'
 import Button from '../components/Buttons';
 import Userinfotoggle from '../components/Userinfotoggle';
 import { GoSidebarCollapse, GoSidebarExpand } from "react-icons/go";
@@ -9,6 +9,8 @@ import userImage from '../assets/tem111.png'
 import Inputfeild from '../components/Inputfeild';
 
 const Home = () => {
+  const [chatSummaries, setChatSummaries] = useState([]);
+  const [activeChatid, setActiveChatid] = useState(null);
   const [messages, setMessages] = useState([]);
   const [file, setFile] = useState(null);
   const [text, setText] = useState("");
@@ -16,31 +18,45 @@ const Home = () => {
   const [toggleInfo, setToggleInfo] = useState(false);
   const [isSidebar, setIsSidebar] = useState(false);
   const [sidebarContent, setSidebarContent] = useState(false);
-  const [isUserscrolling , setIsUserscrolling] = useState(false);
-  
+  const [isUserscrolling, setIsUserscrolling] = useState(false);
+
   const messagesEndRef = useRef();
   const textAreaRef = useRef(null);
   const contentRef = useRef();
-  
+
   useEffect(() => {
-    if (!isUserscrolling && messagesEndRef.current){
-      messagesEndRef.current.scrollIntoView({behavior: "instant", block: "end"})
+    if (!isUserscrolling && messagesEndRef.current) {
+      messagesEndRef.current.scrollIntoView({ behavior: "instant", block: "end" })
     }
   }, [messages.length]);
+
+  useEffect(() => {
+    //first api call jab authentic user login loga for its chatdata
+    const fetchChats = async () => {
+      try {
+        const res = await API.get('/chats');
+        setChatSummaries(res.data);
+      } catch (error) {
+        console.error('fatal during fetching chats data' , error);
+      }
+    }
+
+    fetchChats();
+  }, []);
 
 
   const handleScroll = () => {
     const el = contentRef.current;
-    const atbottom = Math.abs(el.scrollHeight - el.scrollTop - el.clientHeight) < 5 ;
+    const atbottom = Math.abs(el.scrollHeight - el.scrollTop - el.clientHeight) < 5;
     setIsUserscrolling(!atbottom);
   };
 
-  useEffect(()=>{
+  useEffect(() => {
     const content = contentRef.current;
-    content.addEventListener('scroll' , handleScroll);
+    content.addEventListener('scroll', handleScroll);
 
-    return () =>{
-      content.removeEventListener('scroll', handleScroll );
+    return () => {
+      content.removeEventListener('scroll', handleScroll);
     };
   }, []);
 
@@ -48,40 +64,40 @@ const Home = () => {
     if (isSidebar) {
       setSidebarContent(false);
       setIsSidebar(false);
-      }
-    else{
+    }
+    else {
       setSidebarContent(true);
       setIsSidebar(true);
-     
+
     }
   };
 
   const sendMessage = async () => {
     if (text.trim() === '' && !file) return;
-    
+
     // Add user message
     const userMessage = { role: 'user', content: text, file: file };
-    const updateMessage = [...messages , userMessage];
+    const updateMessage = [...messages, userMessage];
     setMessages(updateMessage);
-    
+
     // Clear input
     setText('');
     setFile(null);
     setIsLoading(true);
-    
+
     try {
-      const res = await API.post('/conversation' , {messages: updateMessage});
-      const aiResponse = { 
-        role: 'assistant', 
-        content: res.data.response 
+      const res = await API.post('/conversation', { messages: updateMessage });
+      const aiResponse = {
+        role: 'assistant',
+        content: res.data.response
       };
-      
+
       setMessages(prev => [...prev, aiResponse]);
     } catch (error) {
       console.error('Error getting AI response:', error);
-      setMessages(prev => [...prev, { 
-        role: 'system', 
-        content: 'Sorry, there was an error processing your request.' 
+      setMessages(prev => [...prev, {
+        role: 'system',
+        content: 'Sorry, there was an error processing your request.'
       }]);
     } finally {
       setIsLoading(false);
@@ -93,7 +109,7 @@ const Home = () => {
       e.preventDefault();
       sendMessage();
     }
-  },[sendMessage]);
+  }, [sendMessage]);
 
   const adjustHeight = () => {
     const el = textAreaRef.current;
@@ -139,7 +155,7 @@ const Home = () => {
 
       {/* Mobile Sidebar Overlay */}
       {isSidebar && <div className='w-full h-full bg-black/80 fixed z-10 md:hidden'></div>}
-      
+
       {/* Sidebar */}
       <div className={`sidebar ${isSidebar ? "translate-x-0" : '-translate-x-full'} flex min-h-full overflow-hidden transition-all duration-500 ease-in-out border-r border-white/20 absolute z-20 bg-black md:z-0 md:static`}>
         {sidebarContent && (
@@ -160,7 +176,7 @@ const Home = () => {
           </div>
         )}
       </div>
-      
+
       {/* Main Content Area */}
       <div className="mainarea flex relative flex-col flex-1 justify-between items-center overflow-hidden ">
         <div ref={contentRef} className="allcontent absolute inset-x-0
@@ -187,22 +203,21 @@ const Home = () => {
           ) : (
             <div className='messages flex flex-col gap-4 w-full max-w-2xl pb-10 mx-auto'>
               {messages.map((msg, index) => (
-                <div 
-                  key={index} 
-                  className={`message p-3 rounded-xl ${
-                    msg.role === 'user' ? 'bg-[#192333] ml-auto' : 
-                    msg.role === 'system' ? 'bg-red-900/30' : ' mr-auto'
-                  } max-w-[85%]`}
+                <div
+                  key={index}
+                  className={`message p-3 rounded-xl ${msg.role === 'user' ? 'bg-[#192333] ml-auto' :
+                      msg.role === 'system' ? 'bg-red-900/30' : ' mr-auto'
+                    } max-w-[85%]`}
                 >
                   <p className="whitespace-pre-wrap break-words">{msg.content}</p>
                   {msg.file && (
                     <div className="file-preview mt-2 p-2 bg-black/30 rounded-md">
                       <p className='text-xs text-gray-400'>{msg.file.name}</p>
                       {msg.file.type.startsWith('image/') && (
-                        <img 
-                          src={URL.createObjectURL(msg.file)} 
-                          alt="Preview" 
-                          className="mt-2 max-h-40 rounded-md" 
+                        <img
+                          src={URL.createObjectURL(msg.file)}
+                          alt="Preview"
+                          className="mt-2 max-h-40 rounded-md"
                         />
                       )}
                     </div>
@@ -222,7 +237,7 @@ const Home = () => {
             </div>
           )}
         </div>
-        
+
         {/* Input Area */}
         <div className='downcontent absolute bottom-0 p-4 w-full mx-auto bg-gradient-to-t from-black via-black to-transparent'>
           <div className="usertextarea flex flex-col relative items-center justify-center border border-white/20 rounded-xl w-full max-w-3xl min-w-[200px] p-2 mx-auto bg-black">
