@@ -16,4 +16,4 @@ const chatSchema = new mongoose.Schema({
 
 chatSchema.index({user: 1});
 
-module.exports = mongoose.model('Chats' , chatSchemas );  
+module.exports = mongoose.model('Chats' , chatSchema );  

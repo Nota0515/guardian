@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Chats = require('../models/Chats');
-const protect = require('../middleware/authmiddleware');
+const {protect} = require('../middleware/authmiddleware');
 
 //toh basically hmlog isme ak route level middleware ke sath api end point bena rehe hai
 //in which when the client creates it's first request then 2 calls hits honge 1st is /conversation for getting response and the 2nd one is the /chats api through which we will store this info into database
@@ -17,7 +17,7 @@ const protect = require('../middleware/authmiddleware');
 //after saving we return the title , message from the database along with the userID of the client 
 //note : .save validate the new insertion / updation into the document
 
-router.post('/api/chats' , protect , async (req , res )=>{
+router.post('/chats' , protect , async (req , res )=>{
         const userID = req.user._id;
         const {content} = req.body ; 
         if (!content || !content.trim()){
