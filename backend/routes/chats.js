@@ -45,12 +45,12 @@ router.post('/chats', protect, async (req, res) => {
 
 router.post('/chats/:chatId/messages', protect, async (req, res) => {
     const { role, content } = req.body;
-    const chat = Chats.findById(req.params.chatId);
-    if (!chat || chat.user._id.equals(req.user._id)) {
+    const chat = await Chats.findById(req.params.chatId);
+    if (!chat || !chat.user.equals(req.user._id)) {
         return res.status(404).json({ error: "not found" });
     };
     chat.messages.push({role , content});
-    chat.updatedAt = Date.now ;
+    chat.updatedAt = Date.now() ;
     await chat.save();
     return res.status(201).json("Done Bro jake compass check kerle");
 });
