@@ -20,10 +20,6 @@ const { protect } = require('../middleware/authmiddleware');
 router.post('/chats', protect, async (req, res) => {
     const userID = req.user._id;
     const { content } = req.body;
-    if (!content || !content.trim()) {
-        res.status(404).json({ error: "message content is require" })
-    };
-
     try {
         const snippet = content.length > 15 ? content.slice(0, 15) + "..." : content;
         const newChat = new Chats({
@@ -46,6 +42,20 @@ router.post('/chats', protect, async (req, res) => {
 });
 
 
+
+router.post('/chats/:chatId/messages', protect, async (req, res) => {
+    const { role, content } = req.body;
+    const chat = Chats.findById(req.params.chatId);
+    if (!chat || chat.user._id.equals(req.user._id)) {
+        return res.status(404).json({ error: "not found" });
+    };
+    chat.messages.push({role , content});
+    chat.updatedAt = Date.now ;
+    await chat.save();
+    return res.status(201).json("Done Bro jake compass check kerle");
+});
+
+
 router.get('/chats', protect, async (req, res) => {
     const userID = req.user._id;
     try {
@@ -56,7 +66,7 @@ router.get('/chats', protect, async (req, res) => {
                 updatedAt: 1
             }
         ).sort({ updatedAt: -1 }); //this will sort them for most recent first
-        return res.status(200).json({ chatSummary });
+        return res.status(200).json(chatSummary);
     } catch (error) {
         res.status(500).json({ error: 'error fetching the chat details' })
     }
@@ -72,7 +82,7 @@ router.get('/chats/:chatId', protect, async (req, res) => {
         }
         res.status(200).json(chat);
     } catch (error) {
-        res.status(500).json({error : "Cannot fetch full chat"})
+        res.status(500).json({ error: "Cannot fetch full chat" })
     }
 });
 
