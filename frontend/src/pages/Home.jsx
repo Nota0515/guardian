@@ -35,7 +35,7 @@ const Home = () => {
     //first api call jab authentic user login loga for its chatdata
     const fetchChats = async () => {
       try {
-        const res = API.get('/chats');
+        const res = await API.get('/chats');
         setChatSummaries(res.data); // [ {_id: , title : , UpdatedAt }, ...]
       } catch (error) {
         console.error('fatal during fetching chats data', error);
@@ -76,7 +76,7 @@ const Home = () => {
 
   const selectChat = async (chatId) => {
     try {
-      const res = await API.get(`/chat/${chatId}`);
+      const res = await API.get(`/chats/${chatId}`);
       // res.data = full chat: { _id, user, title, messages: […] , updatedAt } that why with use the messages object here cause we only need that
       setMessages(res.data.messages);
       setActiveChatid(chatId);
@@ -197,11 +197,11 @@ const Home = () => {
               <Button onClick={toggleSidebar}><RxCross2 /></Button>
             </div>
             <SidebarCon
-              chats={chatId}
+              chats={chatSummaries}
               activeChatid={activeChatid}
-              onselect={chadId => {
+              onSelect={chatId => {
                 toggleSidebar(); // 
-                selectChat(chadId);
+                selectChat(chatId);
               }}
             />
           </div>
