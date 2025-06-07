@@ -7,6 +7,7 @@ import { RiSendPlaneFill } from "react-icons/ri";
 import { RxCross2 } from "react-icons/rx";
 import userImage from '../assets/tem111.png'
 import Inputfeild from '../components/Inputfeild';
+import SidebarCon from '../components/SidebarCon';
 
 const Home = () => {
   const [chatSummaries, setChatSummaries] = useState([]);
@@ -34,10 +35,11 @@ const Home = () => {
     //first api call jab authentic user login loga for its chatdata
     const fetchChats = async () => {
       try {
-        const res = await API.get('/chats');
-        setChatSummaries(res.data);
+        const res = API.get('/chats');
+        setChatSummaries(res.data); // [ {_id: , title : , UpdatedAt }, ...]
       } catch (error) {
-        console.error('fatal during fetching chats data' , error);
+        console.error('fatal during fetching chats data', error);
+        setMessages(prev => [...prev, { role: 'system', content: 'error processingsing your mesage' }])
       }
     }
 
@@ -72,10 +74,25 @@ const Home = () => {
     }
   };
 
+  const selectChat = async (chatId) => {
+    try {
+      const res = await API.get(`/chat/${chatId}`);
+      // res.data = full chat: { _id, user, title, messages: […] , updatedAt } that why with use the messages object here cause we only need that
+      setMessages(res.data.messages);
+      setActiveChatid(chatId);
+    } catch (error) {
+      console.error('error in fectching the chat details', error)
+    }
+  };
+
+
+
+
+
   const sendMessage = async () => {
     if (text.trim() === '' && !file) return;
 
-    // Add user message
+    // this is for ui message display purpose
     const userMessage = { role: 'user', content: text, file: file };
     const updateMessage = [...messages, userMessage];
     setMessages(updateMessage);
@@ -86,6 +103,18 @@ const Home = () => {
     setIsLoading(true);
 
     try {
+      //1 : to check if the activechatid is open or is this is a new chat for the first time ? 
+      if(!activeChatid){
+        const {data} = await API.post('./chats' , {content : text}); // this will creates a new chatid for this new chat with a title 
+        setActiveChatid(data._id);
+        setChatSummaries(prev=>[{id: data._id , title: data.title , updatedAt: data.updatedAt } , ...prev]);
+      }else {
+
+        //2: else add the new message to the previous chat data
+        await API.post(`/chats/${activeChatid}/messages` , userMessage);
+      }
+
+      // 4: api for AI communication
       const res = await API.post('/conversation', { messages: updateMessage });
       const aiResponse = {
         role: 'assistant',
@@ -93,6 +122,10 @@ const Home = () => {
       };
 
       setMessages(prev => [...prev, aiResponse]);
+
+
+      //5: updating the specific chatID mesages in the database
+      await API.post(`/chats/${activeChatid}/messages`, aiResponse);
     } catch (error) {
       console.error('Error getting AI response:', error);
       setMessages(prev => [...prev, {
@@ -163,16 +196,14 @@ const Home = () => {
             <div className='crossicon absolute top-5 right-5  md:hidden' title='close'>
               <Button onClick={toggleSidebar}><RxCross2 /></Button>
             </div>
-            <h2 className="text-xl font-medium mb-4">Recent Chats</h2>
-            <div className="chat-list space-y-2">
-              {/* Add your chat history items here */}
-              <div className="chat-item p-2 rounded hover:bg-white/10 cursor-pointer">
-                DSA Problem Solving
-              </div>
-              <div className="chat-item p-2 rounded hover:bg-white/10 cursor-pointer">
-                Algorithm Tips
-              </div>
-            </div>
+            <SidebarCon
+              chats={chatId}
+              activeChatid={activeChatid}
+              onselect={chadId => {
+                toggleSidebar(); // 
+                selectChat(chadId);
+              }}
+            />
           </div>
         )}
       </div>
@@ -206,7 +237,7 @@ const Home = () => {
                 <div
                   key={index}
                   className={`message p-3 rounded-xl ${msg.role === 'user' ? 'bg-[#192333] ml-auto' :
-                      msg.role === 'system' ? 'bg-red-900/30' : ' mr-auto'
+                    msg.role === 'system' ? 'bg-red-900/30' : ' mr-auto'
                     } max-w-[85%]`}
                 >
                   <p className="whitespace-pre-wrap break-words">{msg.content}</p>
