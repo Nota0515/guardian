@@ -103,10 +103,11 @@ const Home = () => {
     setIsLoading(true);
 
     try {
+      let chatId = activeChatid;
       //1 : to check if the activechatid is open or is this is a new chat for the first time ? 
-      if(!activeChatid){
+      if(!chatId){
         const {data} = await API.post('./chats' , {content : text}); // this will creates a new chatid for this new chat with a title 
-        const chatId = data._id ; 
+        chatId = data._id ; 
         setActiveChatid(chatId);
         setChatSummaries(prev=>[{id: data._id , title: data.title , updatedAt: data.updatedAt } , ...prev]);
       }else {
@@ -127,7 +128,7 @@ const Home = () => {
 
 
       //5: updating the specific chatID mesages in the database
-      await API.post(`/chats/${activeChatid}/messages`, aiResponse);
+      await API.post(`/chats/${chatId}/messages`, aiResponse);
     } catch (error) {
       console.error('Error getting AI response:', error);
       setMessages(prev => [...prev, {
