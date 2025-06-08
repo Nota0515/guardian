@@ -106,14 +106,14 @@ const Home = () => {
       //1 : to check if the activechatid is open or is this is a new chat for the first time ? 
       if(!activeChatid){
         const {data} = await API.post('./chats' , {content : text}); // this will creates a new chatid for this new chat with a title 
-        activeChatid = data._id ; 
-        setActiveChatid(activeChatid);
+        const chatId = data._id ; 
+        setActiveChatid(chatId);
         setChatSummaries(prev=>[{id: data._id , title: data.title , updatedAt: data.updatedAt } , ...prev]);
       }else {
 
         //2: else add the new message to the previous chat data but before first update the active chat ID 
 
-        await API.post(`/chats/${activeChatid}/messages` , userMessage);
+        await API.post(`/chats/${chatId}/messages` , userMessage);
       }
 
       // 4: api for AI communication
