@@ -277,6 +277,8 @@ const Home = () => {
           <div className="usertextarea flex flex-col relative items-center justify-center border border-white/20 rounded-xl w-full max-w-3xl min-w-[200px] p-2 mx-auto bg-black">
             <div className='textArea flex w-full justify-center overflow-hidden pt-1 px-2'>
               <textarea
+                id='text'
+                name='textArea'
                 ref={textAreaRef}
                 onInput={adjustHeight}
                 onKeyDown={handleKeyDown}
