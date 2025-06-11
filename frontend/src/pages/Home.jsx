@@ -6,12 +6,15 @@ import { GoSidebarCollapse, GoSidebarExpand } from "react-icons/go";
 import { RiSendPlaneFill } from "react-icons/ri";
 import { RxCross2 } from "react-icons/rx";
 import userImage from '../assets/tem111.png'
+import { useParams , Navigate, useNavigate } from 'react-router-dom';
 import Inputfeild from '../components/Inputfeild';
 import SidebarCon from '../components/SidebarCon';
 
 const Home = () => {
+  
   const [chatSummaries, setChatSummaries] = useState([]);
-  const [activeChatid, setActiveChatid] = useState(null);
+  const { chatId } = useParams();
+  const navigate = useNavigate();
   const [messages, setMessages] = useState([]);
   const [file, setFile] = useState(null);
   const [text, setText] = useState("");
@@ -44,7 +47,15 @@ const Home = () => {
     }
 
     fetchChats();
-  }, []);
+  }, []); // Initial chat summaries fetch
+
+  useEffect(()=>{
+    if(chatId){
+      selectChat(chatId);
+    }else{
+      setMessages([]);
+    }
+  }, [chatId]);
 
 
   const handleScroll = () => {
@@ -79,7 +90,6 @@ const Home = () => {
       const res = await API.get(`/chats/${chatId}`);
       // res.data = full chat: { _id, user, title, messages: […] , updatedAt } that why with use the messages object here cause we only need that
       setMessages(res.data.messages);
-      setActiveChatid(chatId);
     } catch (error) {
       console.error('error in fectching the chat details', error)
     }
@@ -103,12 +113,13 @@ const Home = () => {
     setIsLoading(true);
 
     try {
-      let chatId = activeChatid;
-      //1 : to check if the activechatid is open or is this is a new chat for the first time ? 
-      if(!chatId){
+      let currentchatId = chatId; //take the url chatid here
+      //1 : to check if the currentchatId is open or is this is a new chat for the first time ? 
+      if(!currentchatId){
         const {data} = await API.post('./chats' , {content : text}); // this will creates a new chatid for this new chat with a title 
-        chatId = data._id ; 
-        setActiveChatid(chatId);
+        currentchatId = data._id ; 
+        navigate(`/c/${currentchatId}`);
+  
         setChatSummaries(prev=>[{id: data._id , title: data.title , updatedAt: data.updatedAt } , ...prev]);
       }else {
 
@@ -201,10 +212,10 @@ const Home = () => {
             </div>
             <SidebarCon
               chats={chatSummaries}
-              activeChatid={activeChatid}
+              activeChatid={chatId}
               onSelect={chatId => {
                 toggleSidebar(); // 
-                selectChat(chatId);
+                navigate(`/c/${chatId}`)
               }}
             />
           </div>
