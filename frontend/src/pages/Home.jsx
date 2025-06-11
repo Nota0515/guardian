@@ -125,7 +125,7 @@ const Home = () => {
 
         //2: else add the new message to the previous chat data but before first update the active chat ID 
 
-        await API.post(`/chats/${chatId}/messages` , userMessage);
+        await API.post(`/chats/${currentchatId}/messages` , userMessage);
       }
 
       // 4: api for AI communication
@@ -139,7 +139,7 @@ const Home = () => {
 
 
       //5: updating the specific chatID mesages in the database
-      await API.post(`/chats/${chatId}/messages`, aiResponse);
+      await API.post(`/chats/${currentchatId}/messages`, aiResponse);
     } catch (error) {
       console.error('Error getting AI response:', error);
       setMessages(prev => [...prev, {
