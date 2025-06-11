@@ -251,8 +251,8 @@ const Home = () => {
                 <div
                   key={index}
                   className={`message p-3 rounded-xl ${msg.role === 'user' ? 'bg-[#192333] ml-auto' :
-                    msg.role === 'system' ? 'bg-red-900/30' : ' mr-auto'
-                    } max-w-[85%]`}
+                    msg.role === 'system' ? 'bg-red-900/30' :  ""
+                    } max-w-full`}
                 >
                   <p className="whitespace-pre-wrap break-words">{msg.content}</p>
                   {msg.file && (
