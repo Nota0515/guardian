@@ -116,7 +116,7 @@ const Home = () => {
       let currentchatId = chatId; //take the url chatid here
       //1 : to check if the currentchatId is open or is this is a new chat for the first time ? 
       if(!currentchatId){
-        const {data} = await API.post('./chats' , {content : text}); // this will creates a new chatid for this new chat with a title 
+        const {data} = await API.post('/chats' , {content : text}); // this will creates a new chatid for this new chat with a title 
         currentchatId = data._id ; 
         navigate(`/c/${currentchatId}`);
   
