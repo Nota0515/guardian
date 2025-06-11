@@ -1,4 +1,5 @@
 import React from 'react'
+import { Navigate, useNavigate } from 'react-router-dom';
 import { CiUser } from "react-icons/ci";
 import { CiLogout } from "react-icons/ci";
 import { CiBadgeDollar } from "react-icons/ci";
@@ -8,9 +9,17 @@ import Button from './Buttons';
 
 const Userinfotoggle = () => {
 
+  const navigate = useNavigate();
+
   const BtnClicked = () => {
     console.log('the btn is clicked')
   }
+
+  const logOutBtn = () => {
+    localStorage.removeItem('token');
+    navigate('/login')
+  }
+
   return (
     <div className={`userinformation w-full h-full rounded-md font-thin text-base overflow-hidden bg-gray-900 border border-white/20 flex items-start p-2 flex-col gap-y-1`}>
             <div className='profileuser'>
@@ -30,7 +39,7 @@ const Userinfotoggle = () => {
               </Button>
             </div>
             <div className='logoutbutton flex flex-1 pr-1 -mt-1 items-center active:bg-blue-900/20  lg:hover:bg-zinc-800 rounded-md overflow-hidden'>
-              <Button onClick={BtnClicked}>
+              <Button onClick={logOutBtn}>
                 <span><CiLogout /></span>
                 <p>logout</p>
               </Button>
