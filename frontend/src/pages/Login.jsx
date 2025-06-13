@@ -5,17 +5,52 @@ import API from '../api/index';
 
 const Login = () => {
   const [email, setEmail] = useState('');
+  const [emailError , setEmailError] = useState('');
+  const [passwordError , setPasswordError ] = useState('');
+  const [generalError , setGeneralError] = useState('');
   const [password , setPassword] = useState('');
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+
+    setEmailError('');
+    setPasswordError('');
+    setGeneralError('');
+
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    let isValid = true ;
+
+    if(!email.trim()){
+      setEmailError("Email required");
+      isValid = false ;
+    }else if (!emailRegex.test(email)){
+      setEmailError("plz enter valid email");
+      isValid = false ; 
+    }
+
+    //password check 
+    if(!password.trim()){
+      setPasswordError("plz enter a password");
+      isValid = false ; 
+    }else if (!password.length > 8){
+      setPasswordError('password length must be atleast 8 character');
+      isValid = false ;
+    }
+
+    if(!isValid){
+      return ; 
+    }
+
     try {
       const res = await API.post('/login' , {email , password})
       localStorage.setItem('token' , res.data.token ); // this will store the jwt token to frontend client in localstorage of browser
       navigate('/') // after succesfull login this will redirect to the main dashboard
     } catch (err) {
-      alert(err.response?.data?.message || "login failed")
+      const errMessage = err.response?.data?.message || "login failed. Please check your credentials";
+      setGeneralError(errMessage);
       console.error(err);
     }
     console.log("the Button was clicked")
@@ -49,6 +84,7 @@ const Login = () => {
                   onChange={(e)=>setEmail(e.target.value)}
                   className="mt-1 block w-full p-2 bg-zinc-900 700 border border-gray-300/20 rounded-md"
                 />
+                {emailError && <p className='text-red-900 text-sm mt-1'>{emailError}</p>}
               </div>
               <div className='password-input'>
                 <label htmlFor='password' className='block text-sm font-medium text-gray-300 mb-2'>Password</label>
@@ -58,7 +94,14 @@ const Login = () => {
                   onChange={(e)=>setPassword(e.target.value)}
                   className='mt-1 block w-full p-2 bg-zinc-900 700 border border-gray-300/20 rounded-md'
                 />
+                {passwordError && <p className='text-red-900 text-sm mt-1'>{passwordError}</p>}
               </div>
+              {
+                generalError && 
+                <div className='generalError mt-3 p-2 border border-red-300/20 rounded-md'>
+                  <p className='text-red-900 text-sm'>{generalError}</p>
+                </div>
+              }
               <div className='flex justify-center items-center mt-2 py-2'>
                 <Button type={'submit'} className={"text-zinc-900 font-medium mx-auto w-full bg-slate-100 hover:bg-slate-300 rounded-md"} >Login</Button>
               </div>
