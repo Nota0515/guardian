@@ -1,6 +1,4 @@
-import React from 'react'
 import Button from '../components/Buttons'
-import Squares from '../components/BgAnimate'
 
 const Pricing = () => {
 
