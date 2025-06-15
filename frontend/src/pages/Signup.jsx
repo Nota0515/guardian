@@ -35,7 +35,7 @@ const Signup = () => {
     }
 
     if (createPassword !== confirmPassword) {
-      setError("password does not match");
+      setPasswordError("password does not match");
       return;
     }
 
