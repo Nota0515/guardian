@@ -6,6 +6,7 @@ import API from '../api/index';
 const Login = () => {
   const [email, setEmail] = useState('');
   const [emailError , setEmailError] = useState('');
+  const [btnLoading , setBtnLoding] = useState(false);
   const [passwordError , setPasswordError ] = useState('');
   const [generalError , setGeneralError] = useState('');
   const [password , setPassword] = useState('');
@@ -45,6 +46,7 @@ const Login = () => {
     }
 
     try {
+      setBtnLoding(true);
       const res = await API.post('/login' , {email , password})
       localStorage.setItem('token' , res.data.token ); // this will store the jwt token to frontend client in localstorage of browser
       navigate('/') // after succesfull login this will redirect to the main dashboard
@@ -52,8 +54,9 @@ const Login = () => {
       const errMessage = err.response?.data?.message || "login failed. Please check your credentials";
       setGeneralError(errMessage);
       console.error(err);
+    }finally{
+      setBtnLoding(false);
     }
-    console.log("the Button was clicked")
   };
 
   useEffect(() => {
@@ -103,7 +106,7 @@ const Login = () => {
                 </div>
               }
               <div className='flex justify-center items-center mt-2 py-2'>
-                <Button type={'submit'} className={"text-zinc-900 font-medium mx-auto w-full bg-slate-100 hover:bg-slate-300 rounded-md"} >Login</Button>
+                <Button type={'submit'} disabled={btnLoading}  className={"text-zinc-900 font-medium mx-auto w-full bg-slate-100 hover:bg-slate-300 rounded-md"} >Login</Button>
               </div>
             </form>
           </div>

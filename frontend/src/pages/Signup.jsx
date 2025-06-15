@@ -8,7 +8,7 @@ const Signup = () => {
 
   const [createPassword, setCreatePassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [error, setError] = useState('');
+  const [btnLoading , setBtnLoding] = useState(false);
   const [generalError, setGeneralError] = useState('');
   const [email, setEmail] = useState('');
   const [emailerror, setEmailerror] = useState('');
@@ -40,6 +40,7 @@ const Signup = () => {
     }
 
     try {
+      setBtnLoding(true);
       const res = await API.post('/signup', {
         email,
         password: createPassword
@@ -50,6 +51,8 @@ const Signup = () => {
       const errMessage = err.response?.data?.message || 'Signup failed';
       setGeneralError(errMessage);
       console.error(err);
+    } finally {
+      setBtnLoding(false);
     }
   };
 
@@ -108,7 +111,7 @@ const Signup = () => {
                 }
               </div>
               <div className='flex justify-center items-center mt-2 py-2'>
-                <Button type={'submit'} className={"text-zinc-900  mx-auto w-full font-medium bg-slate-100 hover:bg-slate-300 rounded-md"} >Sign Up</Button>
+                <Button type={'submit'} disabled={btnLoading} className={"text-zinc-900  mx-auto w-full font-medium bg-slate-100 hover:bg-slate-300 rounded-md"} >Sign Up</Button>
               </div>
             </form>
           </div>
