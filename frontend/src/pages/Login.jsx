@@ -99,7 +99,7 @@ const Login = () => {
               {
                 generalError && 
                 <div className='generalError mt-3 p-2 border border-red-300/20 rounded-md'>
-                  <p className='text-red-900 text-sm'>{generalError}</p>
+                  <p className='text-red-600 text-sm'>{generalError}</p>
                 </div>
               }
               <div className='flex justify-center items-center mt-2 py-2'>
