@@ -6,7 +6,9 @@ const Button = ({children , className , href , onClick , type= "button" , disabl
   
     const renderButton = () =>(
       <button className={classes} onClick={onClick} type={type} disabled={disabled}>
+          {disabled ? <span className="loading loading-dots loading-md"></span> : 
           <span className="z-[2px] flex items-center gap-2 ">{children}</span>
+          }
       </button>
     );
   
