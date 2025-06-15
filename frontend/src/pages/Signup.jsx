@@ -2,14 +2,15 @@ import { useState } from 'react'
 import Button from '../components/Buttons'
 import { useEffect, } from 'react';
 import API from '../api/index';
-import { Link , useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Signup = () => {
 
-  const [createPassword , setCreatePassword] = useState('');
-  const [confirmPassword , setConfirmPassword] = useState('');
-  const [ error , setError ] = useState('');
-  const [email , setEmail] = useState('');
+  const [createPassword, setCreatePassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [error, setError] = useState('');
+  const [generalError, setGeneralError] = useState('');
+  const [email, setEmail] = useState('');
   const [emailerror, setEmailerror] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const navigate = useNavigate();
@@ -20,34 +21,35 @@ const Signup = () => {
     const emailregex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     /* 1st we will check the valid email */
-    if(!emailregex.test(email)){
+    if (!emailregex.test(email)) {
       setEmailerror("plz enter a valid email");
       return;
     }
 
 
-    if (createPassword.length < 8){
+    if (createPassword.length < 8) {
       setPasswordError("password must be atleast be 8 character long")
       return;
-    }else{
+    } else {
       setPasswordError('')
     }
 
-    if( createPassword !== confirmPassword){
+    if (createPassword !== confirmPassword) {
       setError("password does not match");
       return;
     }
 
     try {
-      const res = await API.post('/signup' , {
+      const res = await API.post('/signup', {
         email,
         password: createPassword
       });
-      localStorage.setItem('token' , res.data.token)
+      localStorage.setItem('token', res.data.token)
       navigate('/');
     } catch (err) {
-      alert(err.response?.data?.message || 'Signup failed')
-      {err && <p className="text-red-600 text-sm" >{err}</p>}
+      const errMessage = err.response?.data?.message || 'Signup failed';
+      setGeneralError(errMessage);
+      console.error(err);
     }
   };
 
@@ -76,7 +78,7 @@ const Signup = () => {
                   name='email'
                   id="email"
                   placeholder='you@example.com'
-                  onChange={(e)=>setEmail(e.target.value)}
+                  onChange={(e) => setEmail(e.target.value)}
                   className="mt-1 block w-full p-2 bg-zinc-900 700 border border-gray-300/20 rounded-md"
                 />
                 {emailerror && <p className="text-red-900 text-sm ">{emailerror}</p>}
@@ -87,7 +89,7 @@ const Signup = () => {
                   type='password'
                   name='createPassword'
                   id="createPassword"
-                  onChange={(e)=> setCreatePassword(e.target.value)}
+                  onChange={(e) => setCreatePassword(e.target.value)}
                   className=' block w-full p-2 bg-zinc-900 700 border border-gray-300/20 rounded-md'
                 />
                 {passwordError && <p className="text-red-900 text-sm ">{passwordError}</p>}
@@ -96,10 +98,14 @@ const Signup = () => {
                   type='password'
                   name='confirmPassword'
                   id="confirmPassword"
-                  onChange={(e)=> setConfirmPassword(e.target.value)}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
                   className=' block w-full p-2 bg-zinc-900 700 border border-gray-300/20 rounded-md'
                 />
-                {error && <p className="text-red-900 text-sm ">{error}</p>}
+                {generalError &&
+                  <div className='generalError mt-3 p-2 border text-center border-red-300/20 rounded-md'>
+                    <p className='text-red-600 text-sm'>{generalError}</p>
+                  </div>
+                }
               </div>
               <div className='flex justify-center items-center mt-2 py-2'>
                 <Button type={'submit'} className={"text-zinc-900  mx-auto w-full font-medium bg-slate-100 hover:bg-slate-300 rounded-md"} >Sign Up</Button>
