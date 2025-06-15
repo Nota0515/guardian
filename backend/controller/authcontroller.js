@@ -13,7 +13,7 @@ exports.signup = async (req, res) => {
     const { email, password } = req.body;
     try {
         const exist = await User.findOne({ email });
-        if (exist) return res.json({ message: "User Already exist my friend" });
+        if (exist) return res.status(409).json({ message: "User Already exist my friend" });
         const user = await User.create({email , password});
         res.status(201).json({token : generateToken(user._id)});
     } catch (error) {
