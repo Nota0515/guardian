@@ -13,7 +13,7 @@ const SidebarCon = ({ chats, chatId, onSelect }) => {
                         <div
                             key={chat._id}
                             onClick={() => onSelect(chat._id)}
-                            className={`chat-item p-2 mr-4 rounded 
+                            className={`chat-item p-2 mr-4 rounded-md 
                                 ${chat._id === chatId ? "bg-white/20" : "hover:bg-white/10" }
                                  cursor-pointer`}
                         >

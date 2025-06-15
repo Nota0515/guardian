@@ -212,7 +212,7 @@ const Home = () => {
             </div>
             <SidebarCon
               chats={chatSummaries}
-              activeChatid={chatId}
+              chatId={chatId}
               onSelect={chatId => {
                 toggleSidebar(); // 
                 navigate(`/c/${chatId}`)
