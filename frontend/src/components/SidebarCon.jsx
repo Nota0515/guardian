@@ -4,7 +4,7 @@ import React from 'react'
 const SidebarCon = ({ chats, chatId, onSelect }) => {
     return (
         <div className='sidebar-content w-64 pt-16 px-2'>
-            <h2 className="text-xl font-medium mb-4">Recent Chats</h2>
+            <h2 className="text-xl font-mainFont font-medium mb-4">Recent Chats</h2>
             <div className="chat-list space-y-2">
                 {chats.length === 0 ? (
                     <div className='nopastchat text-gray-400 italic'>No History</div>
@@ -13,7 +13,7 @@ const SidebarCon = ({ chats, chatId, onSelect }) => {
                         <div
                             key={chat._id}
                             onClick={() => onSelect(chat._id)}
-                            className={`chat-item p-2 mr-4 rounded-md 
+                            className={`chat-item p-2 mr-4 font-mainFont font-extralight rounded-xl
                                 ${chat._id === chatId ? "bg-white/20" : "hover:bg-white/10" }
                                  cursor-pointer`}
                         >

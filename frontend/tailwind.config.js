@@ -25,7 +25,9 @@ export default {
           4: "#FF8800",
           5:'#2A2A24',
           6: '#302828',
-          7: "#FFFFDC"
+          7: "#FFFFDC",
+          8: "#2F75DE",
+          9: "#F14469"
         },
       },
       backgroundImage:{
@@ -42,6 +44,7 @@ export default {
       fontFamily :{
         
         pixelify: ['Pixelify Sans', 'sans-serif'],
+        mainFont : ['Bricolage Grotesque' , 'sans-serif']
       },
       boxShadow: {
         'inner-strong': 'inset 0 4px 6px rgba(0, 0, 0, 0.6)',

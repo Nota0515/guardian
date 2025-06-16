@@ -230,17 +230,17 @@ const Home = () => {
              flex flex-col p-8 overflow-y-auto scrollbar-thin scrollbar-track-transparent scrollbar-thumb-rounded-full scrollbar-thumb-neutral-500">
           {messages.length === 0 ? (
             <div className="greeting flex flex-col items-center justify-center h-full w-full">
-              <h1 className='font-normal text-base md:text-3xl bg-gradient-to-r from-yellow-600 to-red-600 text-transparent bg-clip-text'>
+              <h1 className='font-mainFont text-xl text-center font-medium md:text-3xl bg-gradient-to-r from-n-9 to-n-8 drop-shadow-[0_0_70px_red] text-transparent bg-clip-text'>
                 Just ask DSA-based questions
               </h1>
               <div className="suggestion-chips flex flex-wrap gap-2 mt-6 justify-center">
-                <div className="chip px-3 py-1 bg-white/10 rounded-full cursor-pointer hover:bg-white/20">
+                <div className="chip font-mainFont text-xs font-thin px-3 py-1 md:text-base  text-white/45 bg-white/10 rounded-full cursor-pointer hover:bg-white/20">
                   Explain time complexity
                 </div>
-                <div className="chip px-3 py-1 bg-white/10 rounded-full cursor-pointer hover:bg-white/20">
+                <div className="chip font-mainFont px-3  py-1 font-thin text-xs md:text-base  bg-white/10 text-white/45 rounded-full cursor-pointer hover:bg-white/20">
                   Help with binary search
                 </div>
-                <div className="chip px-3 py-1 bg-white/10 rounded-full cursor-pointer hover:bg-white/20">
+                <div className="chip font-mainFont px-3 py-1 font-thin text-xs md:text-base bg-white/10 rounded-full text-white/45 cursor-pointer hover:bg-white/20">
                   Dynamic programming tips
                 </div>
               </div>
@@ -250,7 +250,7 @@ const Home = () => {
               {messages.map((msg, index) => (
                 <div
                   key={index}
-                  className={`message p-3 rounded-xl ${msg.role === 'user' ? 'bg-[#192333] ml-auto' :
+                  className={`message p-3 rounded-2xl ${msg.role === 'user' ? 'bg-[#192333] ml-auto' :
                     msg.role === 'system' ? 'bg-red-900/30' :  ""
                     } max-w-full`}
                 >
