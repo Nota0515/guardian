@@ -26,7 +26,7 @@ const SidebarCon = ({ chats, chatId, onSelect , onRename , onDelete }) => {
                             <span onClick={() => onSelect(chat._id)} className="truncate">{chat.title}</span>
 
                             {/*here we will create the 3dot hover effect */}
-                            <div className='opacity-0 group-hover:opacity-100 pr-2 transition-opacity duration-75'>
+                            <div className='flex opacity-0 group-hover:opacity-100 pr-2 items-center transition-opacity duration-75'>
                                 <Button onClick={(e)=>{
                                     e.stopPropagation();
                                     toggleMenu(chat._id)}}>
@@ -34,8 +34,8 @@ const SidebarCon = ({ chats, chatId, onSelect , onRename , onDelete }) => {
                                 </Button>
                             </div>
                             {/*the menu toggle will open on the basis of the openmenuID mechanism */}
-                            {openMenuId &&
-                            <div className='absolute right-2 top-10 bg-gray-900 text-sm rounded-md z-10 py-1 px-2 space-y-1'>
+                            {openMenuId === chat._id &&
+                            <div className='absolute flex flex-col items-center justify-center gap-y-2  right-2 top-10 w-20 h-20 bg-black border border-white/20 text-sm rounded-md z-10 py-1 px-2 space-y-1'>
                                 <button className='block hover:bg-gray-700 text-gray-500'
                                 onClick={()=>{
                                     onRename(chat._id)
