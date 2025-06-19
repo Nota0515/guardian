@@ -11,7 +11,7 @@ const SidebarCon = ({ chats, chatId, onSelect , onRename , onDelete }) => {
     return (
         <div className='sidebar-content w-64 pt-16 px-2 h-full flex flex-col'>
             <h2 className="text-xl font-mainFont font-medium mb-4 shrink-0">Recent Chats</h2>
-            <div className="chat-list h-full overflow-y-auto pr-1 min-h-0">
+            <div className="chat-list h-full overflow-y-auto scrollbar-thin scrollbar-track-transparent scrollbar-thumb-blue-950/20 pr-1 min-h-0">
                 {chats.length === 0 ? (
                     <div className='nopastchat text-gray-400 italic'>No History</div>
                 ) : (
@@ -20,7 +20,7 @@ const SidebarCon = ({ chats, chatId, onSelect , onRename , onDelete }) => {
                             key={chat._id}
                             onClick={() => onSelect(chat._id)}
                             className={`chat-item p-2 mr-4 flex relative justify-between items-center group font-mainFont font-extralight rounded-xl
-                                ${chat._id === chatId ? "bg-white/20" : "hover:bg-white/10" }
+                                ${chat._id === chatId ? "bg-white/20" : "md:hover:bg-white/10" }
                                  cursor-pointer`}
                         >
                             <span onClick={() => onSelect(chat._id)} className="truncate">{chat.title}</span>

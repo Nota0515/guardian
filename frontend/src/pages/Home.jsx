@@ -227,7 +227,7 @@ const Home = () => {
         <div ref={contentRef} className="allcontent absolute inset-x-0
              top-16
              bottom-24
-             flex flex-col p-8 overflow-y-auto scrollbar-thin scrollbar-track-transparent scrollbar-thumb-rounded-full scrollbar-thumb-neutral-500">
+             flex flex-col p-8 overflow-y-auto scrollbar-thin scrollbar-track-transparent scrollbar-thumb-rang">
           {messages.length === 0 ? (
             <div className="greeting flex flex-col items-center justify-center h-full w-full">
               <h1 className='font-mainFont text-xl text-center font-medium md:text-3xl bg-gradient-to-r from-n-9 to-n-8 drop-shadow-[0_0_70px_red] text-transparent bg-clip-text'>

@@ -20,6 +20,16 @@
   }
 }
 
+@layer utilities{
+  .scrollbar-track-transparent {
+  scrollbar-color: #1a1f27 transparent;
+}
+
+.scrollbar-track-transparent::-webkit-scrollbar-track {
+  background: transparent !important;
+}
+}
+
 html, body {
   margin: 0;
   padding: 0;
