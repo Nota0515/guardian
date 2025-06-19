@@ -22,7 +22,7 @@
 
 @layer utilities{
   .scrollbar-track-transparent {
-  scrollbar-color: #1a1f27 transparent;
+  scrollbar-color: #232d3d transparent;
 }
 
 .scrollbar-track-transparent::-webkit-scrollbar-track {

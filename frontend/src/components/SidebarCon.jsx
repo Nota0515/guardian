@@ -20,7 +20,7 @@ const SidebarCon = ({ chats, chatId, onSelect , onRename , onDelete }) => {
                             key={chat._id}
                             onClick={() => onSelect(chat._id)}
                             className={`chat-item p-2 mr-4 flex relative justify-between items-center group font-mainFont font-extralight rounded-xl
-                                ${chat._id === chatId ? "bg-white/20" : "md:hover:bg-white/10" }
+                                ${chat._id === chatId ? "bg-blue-300/20" : "md:hover:bg-blue-300/10" }
                                  cursor-pointer`}
                         >
                             <span onClick={() => onSelect(chat._id)} className="truncate">{chat.title}</span>
