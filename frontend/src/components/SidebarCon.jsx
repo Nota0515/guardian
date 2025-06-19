@@ -9,9 +9,9 @@ const SidebarCon = ({ chats, chatId, onSelect , onRename , onDelete }) => {
         setOpenMenuId(prev => (prev === id ? null : id));
     }
     return (
-        <div className='sidebar-content w-64 pt-16 px-2'>
-            <h2 className="text-xl font-mainFont font-medium mb-4">Recent Chats</h2>
-            <div className="chat-list space-y-2">
+        <div className='sidebar-content w-64 pt-16 px-2 h-full flex flex-col'>
+            <h2 className="text-xl font-mainFont font-medium mb-4 shrink-0">Recent Chats</h2>
+            <div className="chat-list h-full overflow-y-auto pr-1 min-h-0">
                 {chats.length === 0 ? (
                     <div className='nopastchat text-gray-400 italic'>No History</div>
                 ) : (
@@ -26,7 +26,7 @@ const SidebarCon = ({ chats, chatId, onSelect , onRename , onDelete }) => {
                             <span onClick={() => onSelect(chat._id)} className="truncate">{chat.title}</span>
 
                             {/*here we will create the 3dot hover effect */}
-                            <div className='flex opacity-0 group-hover:opacity-100 pr-2 items-center transition-opacity duration-75'>
+                            <div className='flex opacity-100 md:opacity-0 md:group-hover:opacity-100 pr-2 items-center transition-opacity duration-75'>
                                 <Button onClick={(e)=>{
                                     e.stopPropagation();
                                     toggleMenu(chat._id)}}>
