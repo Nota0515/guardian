@@ -206,9 +206,12 @@ const Home = () => {
       {/* Sidebar */}
       <div className={`sidebar ${isSidebar ? "translate-x-0" : '-translate-x-full'} flex h-[100dvh] overflow-hidden transition-all duration-500 ease-in-out border-r border-white/20 absolute z-20 bg-black md:z-0 md:static`}>
         {sidebarContent && (
-          <div className="sidebar-content flex w-64 pt-16 px-2 h-full pb-10">
+          <div className="sidebar-content1 flex flex-col  w-64 pt-16 px-2 h-full pb-10">
             <div className='crossicon absolute top-5 right-5  md:hidden' title='close'>
               <Button onClick={toggleSidebar}><RxCross2 /></Button>
+            </div>
+            <div className='newChatBtn pt-2 pl-2 pr-4 flex justify-center items-center'>
+                <Button className=" w-full text-sm font-mainFont h-10 rounded-xl border border-orange-500/30 bg-orange-950 drop-shadow-[0_0_80px_red]" href={'/'}>New Problem</Button>
             </div>
             <SidebarCon
               chats={chatSummaries}
