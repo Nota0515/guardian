@@ -19,11 +19,11 @@ const SidebarCon = ({ chats, chatId, onSelect , onRename , onDelete }) => {
                         <div
                             key={chat._id}
                             onClick={() => onSelect(chat._id)}
-                            className={`chat-item p-2 mr-4 flex relative text-gray-200 text-sm justify-between items-center group font-mainFont rounded-xl
+                            className={`chat-item p-2 mr-2 flex relative text-gray-200 text-sm justify-between items-center group font-mainFont rounded-xl
                                 ${chat._id === chatId ? "bg-blue-300/20" : "md:hover:bg-blue-300/10" }
                                  cursor-pointer`}
                         >
-                            <span onClick={() => onSelect(chat._id)} className="truncate">{chat.title}</span>
+                            <span onClick={() => onSelect(chat._id)} className="truncate pl-1">{chat.title}</span>
 
                             {/*here we will create the 3dot hover effect */}
                             <div className='flex opacity-100 md:opacity-0 md:group-hover:opacity-100 pr-2 items-center transition-opacity duration-75'>
