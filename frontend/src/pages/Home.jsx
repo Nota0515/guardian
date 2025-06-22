@@ -178,8 +178,8 @@ const Home = () => {
   return (
     <div className='flex relative min-h-[100dvh] w-full overflow-hidden'>
       {/* Top Navigation */}
-      <div className="topnavigation flex items-center justify-between fixed z-10 md:z-40 top-0 left-0 right-0 w-full mt-2 px-1">
-        <div className="logbox flex items-center p-1">
+      <div className="topnavigation flex items-center justify-between fixed z-10 md:z-40 top-0 left-0 right-0 w-full p-2">
+        <div className="logbox flex items-center p-2">
           <img src='/logoimg.png' className='w-8 h-8' alt="Logo" />
           <span className='text-lg font-pixelify'>Guardian</span>
           <div className='toglesidebar mt-1 ml-1'>
@@ -220,7 +220,7 @@ const Home = () => {
               chats={chatSummaries}
               chatId={chatId}
               onSelect={chatId => {
-                toggleSidebar(); // 
+                toggleSidebar();
                 navigate(`/c/${chatId}`)
               }}
             />
@@ -233,6 +233,8 @@ const Home = () => {
         <div ref={contentRef} className="allcontent absolute inset-x-0
              top-16
              bottom-24
+             border-t
+             border-white/20
              flex flex-col p-8 overflow-y-auto scrollbar-thin scrollbar-track-transparent scrollbar-thumb-rang">
           {messages.length === 0 ? (
             <div className="greeting flex flex-col items-center justify-center h-full w-full">
