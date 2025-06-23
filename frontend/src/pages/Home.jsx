@@ -6,12 +6,12 @@ import { GoSidebarCollapse, GoSidebarExpand } from "react-icons/go";
 import { RiSendPlaneFill } from "react-icons/ri";
 import { RxCross2 } from "react-icons/rx";
 import userImage from '../assets/tem111.png'
-import { useParams , Navigate, useNavigate } from 'react-router-dom';
+import { useParams, Navigate, useNavigate } from 'react-router-dom';
 import Inputfeild from '../components/Inputfeild';
 import SidebarCon from '../components/SidebarCon';
 
 const Home = () => {
-  
+
   const [chatSummaries, setChatSummaries] = useState([]);
   const { chatId } = useParams();
   const navigate = useNavigate();
@@ -49,14 +49,13 @@ const Home = () => {
     fetchChats();
   }, []); // Initial chat summaries fetch
 
-  useEffect(()=>{
-    if(chatId){
+  useEffect(() => {
+    if (chatId) {
       selectChat(chatId);
-    }else{
+    } else {
       setMessages([]);
     }
   }, [chatId]);
-
 
   const handleScroll = () => {
     const el = contentRef.current;
@@ -95,7 +94,19 @@ const Home = () => {
     }
   };
 
+  const HandleSelect = useCallback((id) => {
+    if (window.matchMedia('(max-width: 767px)').matches) {
+      toggleSidebar();
+    }
+    navigate(`/c/${id}`);
+  }, [navigate, toggleSidebar]);
 
+  const HandleNewClick = useCallback(()=>{
+    if (window.matchMedia('(max-width: 767px)').matches) {
+      toggleSidebar();
+    }
+    navigate('/');
+  },[navigate , toggleSidebar])
 
 
 
@@ -115,17 +126,17 @@ const Home = () => {
     try {
       let currentchatId = chatId; //take the url chatid here
       //1 : to check if the currentchatId is open or is this is a new chat for the first time ? 
-      if(!currentchatId){
-        const {data} = await API.post('/chats' , {content : text}); // this will creates a new chatid for this new chat with a title 
-        currentchatId = data._id ; 
+      if (!currentchatId) {
+        const { data } = await API.post('/chats', { content: text }); // this will creates a new chatid for this new chat with a title 
+        currentchatId = data._id;
         navigate(`/c/${currentchatId}`);
-  
-        setChatSummaries(prev=>[{id: data._id , title: data.title , updatedAt: data.updatedAt } , ...prev]);
-      }else {
+
+        setChatSummaries(prev => [{ id: data._id, title: data.title, updatedAt: data.updatedAt }, ...prev]);
+      } else {
 
         //2: else add the new message to the previous chat data but before first update the active chat ID 
 
-        await API.post(`/chats/${currentchatId}/messages` , userMessage);
+        await API.post(`/chats/${currentchatId}/messages`, userMessage);
       }
 
       // 4: api for AI communication
@@ -211,18 +222,12 @@ const Home = () => {
               <Button onClick={toggleSidebar}><RxCross2 /></Button>
             </div>
             <div className='newChatBtn pt-2 pl-2 pr-5 flex justify-center items-center'>
-                <Button className=" w-full text-sm font-mainFont h-10 rounded-xl border border-pink-500/30 bg-pink-950 md:bg-pink-950/50  md:hover:bg-pink-950 drop-shadow-[0_0_80px_red]" onClick={()=>{
-                  toggleSidebar();
-                  navigate('/');
-                }}>New Problem</Button>
+              <Button className=" w-full text-sm font-mainFont h-10 rounded-xl border border-pink-500/30 bg-pink-950 md:bg-pink-950/50  md:hover:bg-pink-950 drop-shadow-[0_0_80px_red]" onClick={HandleNewClick}>New Problem</Button>
             </div>
             <SidebarCon
               chats={chatSummaries}
               chatId={chatId}
-              onSelect={chatId => {
-                toggleSidebar();
-                navigate(`/c/${chatId}`)
-              }}
+              onSelect={HandleSelect}
             />
           </div>
         )}
@@ -259,7 +264,7 @@ const Home = () => {
                 <div
                   key={index}
                   className={`message p-3 rounded-2xl ${msg.role === 'user' ? 'bg-[#192333] ml-auto' :
-                    msg.role === 'system' ? 'bg-red-900/30' :  ""
+                    msg.role === 'system' ? 'bg-red-900/30' : ""
                     } max-w-full`}
                 >
                   <p className="whitespace-pre-wrap break-words">{msg.content}</p>
