@@ -86,5 +86,39 @@ router.get('/chats/:chatId', protect, async (req, res) => {
     }
 });
 
+router.patch('/chats/:chatId' , protect , async(req , res)=>{
+    try{
+        const { id } = req.params ; 
+        const { title } = req.body ;
+        const chat = await Chats.findByIdAndUpdate(
+            id ,
+            {title},
+            {new: true}
+        );
+        if(!chat){
+            return res.status(404).json({error : "chat not Found"})
+        };
+
+        res.status(207).json({sucess : true})
+    }catch(error){
+        res.status(500).json({ error: " internal router error " });
+    }
+});
+
+router.delete('/chats/:chatId' , protect , async(req , res)=>{
+    try {
+        const { id } = req.params ; 
+        const chat = await Chats.findByIdAndDelete(id);
+        if(!chat){
+            return res.status(404).json({error : 'Invalid/not found'});
+        };
+        res.status(204).json({sucess:true});
+    } catch (error) {
+        res.status(500).json({error : "internal server error"})
+    };
+});
+
+
+
 
 module.exports = router;

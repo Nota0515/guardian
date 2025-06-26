@@ -251,7 +251,7 @@ const Home = () => {
               chatId={chatId}
               onSelect={HandleSelect}
               onRename={handleRename}
-              ondelete={handleDelete}
+              onDelete={handleDelete}
             />
           </div>
         )}
