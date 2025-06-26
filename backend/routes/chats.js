@@ -49,8 +49,8 @@ router.post('/chats/:chatId/messages', protect, async (req, res) => {
     if (!chat || !chat.user.equals(req.user._id)) {
         return res.status(404).json({ error: "not found" });
     };
-    chat.messages.push({role , content});
-    chat.updatedAt = Date.now() ;
+    chat.messages.push({ role, content });
+    chat.updatedAt = Date.now();
     await chat.save();
     return res.status(201).json("Done Bro jake compass check kerle");
 });
@@ -86,35 +86,37 @@ router.get('/chats/:chatId', protect, async (req, res) => {
     }
 });
 
-router.patch('/chats/:chatId' , protect , async(req , res)=>{
-    try{
-        const { id } = req.params ; 
-        const { title } = req.body ;
+router.patch('/chats/:chatId', protect, async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { title } = req.body;
+        console.log(id , title);
         const chat = await Chats.findByIdAndUpdate(
-            id ,
-            {title},
-            {new: true}
+            id,
+            { title },
+            { new: true }
         );
-        if(!chat){
-            return res.status(404).json({error : "chat not Found"})
+        if (!chat) {
+            return res.status(404).json({ error: "chat not Found" })
         };
 
-        res.status(207).json({sucess : true})
-    }catch(error){
+        res.status(207).json({ sucess: true })
+    } catch (error) {
         res.status(500).json({ error: " internal router error " });
     }
 });
 
-router.delete('/chats/:chatId' , protect , async(req , res)=>{
+router.delete('/chats/:chatId', protect, async (req, res) => {
     try {
-        const { id } = req.params ; 
+        const { id } = req.params;
+        console.log(id);
         const chat = await Chats.findByIdAndDelete(id);
-        if(!chat){
-            return res.status(404).json({error : 'Invalid/not found'});
+        if (!chat) {
+            return res.status(404).json({ error: 'Invalid/not found' });
         };
-        res.status(204).json({sucess:true});
+        res.status(204).json({ sucess: true });
     } catch (error) {
-        res.status(500).json({error : "internal server error"})
+        res.status(500).json({ error: "internal server error" })
     };
 });
 
