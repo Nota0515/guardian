@@ -88,11 +88,10 @@ router.get('/chats/:chatId', protect, async (req, res) => {
 
 router.patch('/chats/:chatId', protect, async (req, res) => {
     try {
-        const { id } = req.params;
+        const { chatId } = req.params;
         const { title } = req.body;
-        console.log(id , title);
         const chat = await Chats.findByIdAndUpdate(
-            id,
+            chatId,
             { title },
             { new: true }
         );
@@ -108,9 +107,8 @@ router.patch('/chats/:chatId', protect, async (req, res) => {
 
 router.delete('/chats/:chatId', protect, async (req, res) => {
     try {
-        const { id } = req.params;
-        console.log(id);
-        const chat = await Chats.findByIdAndDelete(id);
+        const { chatId } = req.params;
+        const chat = await Chats.findByIdAndDelete(chatId);
         if (!chat) {
             return res.status(404).json({ error: 'Invalid/not found' });
         };
