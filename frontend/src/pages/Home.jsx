@@ -162,6 +162,28 @@ const Home = () => {
     }
   };
 
+  const handleRename = useCallback(async(id)=>{
+    const newtitle = window.prompt("enter the new title");
+    if (!newtitle?.trim()) return ;
+
+    await API.patch(`/chats/${id}`, {title: newtitle});
+
+    setChatSummaries(cs => cs.map(
+    //here we are maping throuhgh all the chats which we have fetched in the chatsummaries state 
+      c => c._id === id ? { ...c, title: newtitle } : c));
+  },[setChatSummaries])
+
+  const handleDelete = useCallback(async(id)=>{
+    if(!window.confirm("are you sure you")) return;
+
+    await API.delete(`/chats/${id}`);
+
+    setChatSummaries(cs => cs.filter(c=> c._id !== id));
+
+    if(id === chatId ) navigate('/');
+
+  },[chatId, navigate, setChatSummaries])
+
   const handleKeyDown = useCallback((e) => {
     if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
@@ -228,6 +250,8 @@ const Home = () => {
               chats={chatSummaries}
               chatId={chatId}
               onSelect={HandleSelect}
+              onRename={handleRename}
+              ondelete={handleDelete}
             />
           </div>
         )}
