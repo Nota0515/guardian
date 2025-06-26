@@ -23,7 +23,7 @@ const SidebarCon = ({ chats, chatId, onSelect, onRename, onDelete }) => {
 
 
     return (
-        <div className='sidebar-content2 pt-5 px-2 min-h-0 flex flex-col'>
+        <div className='sidebar-content2 pt-5 px-2 min-h-0 pb-10 flex flex-col'>
             <h2 className="text-xs font-semibold font-mainFont text-gray-500 mb-4 ml-2 shrink-0">Recent</h2>
             <div className="chat-list overflow-y-auto scrollbar-thin scrollbar-track-transparent scrollbar-thumb-blue-950/20 pr-1 min-h-0">
                 {chats.length === 0 ? (
