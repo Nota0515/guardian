@@ -4,6 +4,7 @@ import Login from "./pages/Login"
 import Home from "./pages/Home"
 import Pricing from "./pages/Pricing"
 import PrivateRoute from './components/PrivateRoute';
+import { Analytics } from '@vercel/analytics'
 
 const App = () => {
   return (
@@ -28,6 +29,7 @@ const App = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
         </Routes>
+        <Analytics />
       </div>
     </>
   )
