@@ -37,7 +37,7 @@ const SidebarCon = ({ chats, chatId, onSelect, onRename, onDelete }) => {
                                 ${chat._id === chatId ? "bg-blue-300/10 md:hover:bg-blue-300/20" : "md:hover:bg-blue-300/20"}
                                  cursor-pointer`}
                         >
-                            <span onClick={() => onSelect(chat._id)} className="truncate pl-1">{chat.title}</span>
+                            <span className="truncate pl-1">{chat.title}</span>
 
                             {/*here we will create the 3dot hover effect */}
                             <div className={`flex opacity-100  ${openMenuId === chat._id ? 'opacity-100' : 'md:opacity-0 md:group-hover:opacity-100'} pr-2 items-center transition-opacity duration-75`}>

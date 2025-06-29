@@ -97,7 +97,10 @@ const Home = () => {
   const HandleSelect = useCallback((id) => {
     if (window.matchMedia('(max-width: 767px)').matches) {
       toggleSidebar();
+    }else if(chatId === id){
+      return ;
     }
+    setMessages([]);
     navigate(`/c/${id}`);
   }, [navigate, toggleSidebar]);
 
