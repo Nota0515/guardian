@@ -1,4 +1,6 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
+import Chatskeleton from '../components/Chatskeleton';
+import ReactMarkdown from 'react-markdown';
 import API from '../api/index'
 import Button from '../components/Buttons';
 import Userinfotoggle from '../components/Userinfotoggle';
@@ -19,6 +21,7 @@ const Home = () => {
   const [file, setFile] = useState(null);
   const [text, setText] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [isChatloading, setIsChatloading] = useState(false);
   const [toggleInfo, setToggleInfo] = useState(false);
   const [isSidebar, setIsSidebar] = useState(false);
   const [sidebarContent, setSidebarContent] = useState(false);
@@ -89,6 +92,7 @@ const Home = () => {
       const res = await API.get(`/chats/${chatId}`);
       // res.data = full chat: { _id, user, title, messages: […] , updatedAt } that why with use the messages object here cause we only need that
       setMessages(res.data.messages);
+      setIsChatloading(false);
     } catch (error) {
       console.error('error in fectching the chat details', error)
     }
@@ -97,19 +101,20 @@ const Home = () => {
   const HandleSelect = useCallback((id) => {
     if (window.matchMedia('(max-width: 767px)').matches) {
       toggleSidebar();
-    }else if(chatId === id){
-      return ;
+    } else if (chatId === id) {
+      return;
     }
+    setIsChatloading(true);
     setMessages([]);
     navigate(`/c/${id}`);
   }, [navigate, toggleSidebar]);
 
-  const HandleNewClick = useCallback(()=>{
+  const HandleNewClick = useCallback(() => {
     if (window.matchMedia('(max-width: 767px)').matches) {
       toggleSidebar();
     }
     navigate('/');
-  },[navigate , toggleSidebar])
+  }, [navigate, toggleSidebar])
 
 
 
@@ -165,27 +170,27 @@ const Home = () => {
     }
   };
 
-  const handleRename = useCallback(async(id)=>{
+  const handleRename = useCallback(async (id) => {
     const newtitle = window.prompt("enter the new title");
-    if (!newtitle?.trim()) return ;
+    if (!newtitle?.trim()) return;
 
-    await API.patch(`/chats/${id}`, {title: newtitle});
+    await API.patch(`/chats/${id}`, { title: newtitle });
 
     setChatSummaries(cs => cs.map(
-    //here we are maping throuhgh all the chats which we have fetched in the chatsummaries state 
+      //here we are maping throuhgh all the chats which we have fetched in the chatsummaries state 
       c => c._id === id ? { ...c, title: newtitle } : c));
-  },[setChatSummaries])
+  }, [setChatSummaries])
 
-  const handleDelete = useCallback(async(id)=>{
-    if(!window.confirm("are you sure you")) return;
+  const handleDelete = useCallback(async (id) => {
+    if (!window.confirm("are you sure you")) return;
 
     await API.delete(`/chats/${id}`);
 
-    setChatSummaries(cs => cs.filter(c=> c._id !== id));
+    setChatSummaries(cs => cs.filter(c => c._id !== id));
 
-    if(id === chatId ) navigate('/');
+    if (id === chatId) navigate('/');
 
-  },[chatId, navigate, setChatSummaries])
+  }, [chatId, navigate, setChatSummaries])
 
   const handleKeyDown = useCallback((e) => {
     if (e.key === "Enter" && !e.shiftKey) {
@@ -268,7 +273,12 @@ const Home = () => {
              border-t
              border-white/20
              flex flex-col p-8 overflow-y-auto scrollbar-thin scrollbar-track-transparent scrollbar-thumb-rang">
-          {messages.length === 0 ? (
+              { isChatloading && (
+                <div className='ChatSkeleton flex h-full w-full justify-center items-center'>
+                  <Chatskeleton/>
+                </div>
+              ) }
+          {chatId === undefined ? (
             <div className="greeting flex flex-col items-center justify-center h-full w-full">
               <h1 className='font-mainFont text-xl text-center font-medium md:text-3xl bg-gradient-to-r from-n-9 to-n-8 drop-shadow-[0_0_70px_red] text-transparent bg-clip-text'>
                 Just ask DSA-based questions
@@ -294,7 +304,9 @@ const Home = () => {
                     msg.role === 'system' ? 'bg-red-900/30' : ""
                     } max-w-full`}
                 >
-                  <p className="whitespace-pre-wrap break-words">{msg.content}</p>
+                  <div className="prose prose-invert max-w-none break-words whitespace-pre-wrap">
+                    <ReactMarkdown>{msg.content}</ReactMarkdown>
+                  </div>
                   {msg.file && (
                     <div className="file-preview mt-2 p-2 bg-black/30 rounded-md">
                       <p className='text-xs text-gray-400'>{msg.file.name}</p>
