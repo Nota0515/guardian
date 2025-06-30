@@ -23,8 +23,9 @@ const Home = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isChatloading, setIsChatloading] = useState(false);
   const [toggleInfo, setToggleInfo] = useState(false);
-  const [isSidebar, setIsSidebar] = useState(false);
-  const [sidebarContent, setSidebarContent] = useState(false);
+  const isLarge = window.matchMedia('(min-width : 768px)').matches ;
+  const [isSidebar, setIsSidebar] = useState(isLarge);
+  const [sidebarContent, setSidebarContent] = useState(isLarge);
   const [isUserscrolling, setIsUserscrolling] = useState(false);
 
   const messagesEndRef = useRef();
