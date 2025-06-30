@@ -1,5 +1,6 @@
 import { BsThreeDots } from 'react-icons/bs';
 import Button from './Buttons';
+import Menuportal from './Menuportal';
 import { useEffect, useRef, useState } from 'react';
 
 
@@ -7,6 +8,7 @@ const SidebarCon = ({ chats, chatId, onSelect, onRename, onDelete }) => {
     const menuref = useRef(null);
 
     const [openMenuId, setOpenMenuId] = useState(null);
+    const [btnPosition, setBtnPosition] = useState(null);
     const toggleMenu = (id) => {
         setOpenMenuId(prev => (prev === id ? null : id));
     }
@@ -43,34 +45,47 @@ const SidebarCon = ({ chats, chatId, onSelect, onRename, onDelete }) => {
                             <div className={`flex opacity-100  ${openMenuId === chat._id ? 'opacity-100' : 'md:opacity-0 md:group-hover:opacity-100'} pr-2 items-center transition-opacity duration-75`}>
                                 <Button onClick={(e) => {
                                     e.stopPropagation();
-                                    toggleMenu(chat._id)
+                                    const rect = e.currentTarget.getBoundingClientRect();
+                                    setBtnPosition({top : rect.bottom + 5 , left: rect.left });
+                                    toggleMenu(chat._id);
                                 }}>
                                     <BsThreeDots />
                                 </Button>
                             </div>
                             {/*the menu toggle will open on the basis of the openmenuID mechanism */}
                             {openMenuId === chat._id &&
-                                <div ref={menuref} className='absolute flex flex-col justify-center right-1 top-10 bg-gray-950 border border-white/20 text-base font-mainFont rounded-lg p-1 z-10'>
-                                    <button className='block hover:bg-gray-800 p-1 rounded-md px-3 text-gray-300'
-                                        onClick={(e) => {
-                                            e.stopPropagation();
-                                            onRename(chat._id)
-                                            setOpenMenuId(null);
-                                        }}
+                                <Menuportal>
+                                    <div
+                                        ref={menuref}
+                                        className='fixed z-[9999] flex flex-col justify-center w-fit right-1 top-10 bg-gray-950 border border-white/20 text-base font-mainFont rounded-lg p-1 '
+                                        style={
+                                            {
+                                                top: btnPosition?.top ?? 100,
+                                                left: btnPosition?.left ?? 100,
+                                            }
+                                        }
                                     >
-                                        rename
-                                    </button>
-                                    <div className='w-full border border-white/10 my-1'></div>
-                                    <button className='block text-red-400 p-1 rounded-md hover:bg-orange-950 '
-                                        onClick={(e) => {
-                                            e.stopPropagation();
-                                            onDelete(chat._id)
-                                            setOpenMenuId(null);
-                                        }}
-                                    >
-                                        delete
-                                    </button>
-                                </div>
+                                        <button className='block hover:bg-gray-800 p-1 rounded-md px-3 text-gray-300'
+                                            onClick={(e) => {
+                                                e.stopPropagation();
+                                                onRename(chat._id)
+                                                setOpenMenuId(null);
+                                            }}
+                                        >
+                                            rename
+                                        </button>
+                                        <div className='w-full border border-white/10 my-1'></div>
+                                        <button className='block text-red-400 p-1 rounded-md hover:bg-orange-950 '
+                                            onClick={(e) => {
+                                                e.stopPropagation();
+                                                onDelete(chat._id)
+                                                setOpenMenuId(null);
+                                            }}
+                                        >
+                                            delete
+                                        </button>
+                                    </div>
+                                </Menuportal>
                             }
                         </div>
                     ))
