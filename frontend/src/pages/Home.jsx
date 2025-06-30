@@ -11,6 +11,7 @@ import userImage from '../assets/tem111.png'
 import { useParams, Navigate, useNavigate } from 'react-router-dom';
 import Inputfeild from '../components/Inputfeild';
 import SidebarCon from '../components/SidebarCon';
+import Sidebarskeleton from '../components/Sidebarskeleton';
 
 const Home = () => {
 
@@ -21,9 +22,10 @@ const Home = () => {
   const [file, setFile] = useState(null);
   const [text, setText] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [summeryLoad, setSummeryLoad] = useState(false);
   const [isChatloading, setIsChatloading] = useState(false);
   const [toggleInfo, setToggleInfo] = useState(false);
-  const isLarge = window.matchMedia('(min-width : 768px)').matches ;
+  const isLarge = window.matchMedia('(min-width : 768px)').matches;
   const [isSidebar, setIsSidebar] = useState(isLarge);
   const [sidebarContent, setSidebarContent] = useState(isLarge);
   const [isUserscrolling, setIsUserscrolling] = useState(false);
@@ -41,12 +43,15 @@ const Home = () => {
   useEffect(() => {
     //first api call jab authentic user login loga for its chatdata
     const fetchChats = async () => {
+      setSummeryLoad(true);
       try {
         const res = await API.get('/chats');
         setChatSummaries(res.data); // [ {_id: , title : , UpdatedAt }, ...]
       } catch (error) {
         console.error('fatal during fetching chats data', error);
         setMessages(prev => [...prev, { role: 'system', content: 'error processingsing your mesage' }])
+      } finally {
+        setSummeryLoad(false);
       }
     }
 
@@ -255,13 +260,17 @@ const Home = () => {
             <div className='newChatBtn pt-2 pl-2 pr-5 flex justify-center items-center'>
               <Button className=" w-full text-sm font-mainFont h-10 rounded-xl border border-pink-500/30 bg-pink-950 md:bg-pink-950/50  md:hover:bg-pink-950 drop-shadow-[0_0_80px_red]" onClick={HandleNewClick}>New Problem</Button>
             </div>
-            <SidebarCon
-              chats={chatSummaries}
-              chatId={chatId}
-              onSelect={HandleSelect}
-              onRename={handleRename}
-              onDelete={handleDelete}
-            />
+            {summeryLoad ? (
+              <Sidebarskeleton/>
+            ) : (
+              <SidebarCon
+                chats={chatSummaries}
+                chatId={chatId}
+                onSelect={HandleSelect}
+                onRename={handleRename}
+                onDelete={handleDelete}
+              />
+            )}
           </div>
         )}
       </div>
@@ -274,11 +283,11 @@ const Home = () => {
              border-t
              border-white/20
              flex flex-col p-8 overflow-y-auto scrollbar-thin scrollbar-track-transparent scrollbar-thumb-rang">
-              { isChatloading && (
-                <div className='ChatSkeleton flex h-full w-full justify-center items-center'>
-                  <Chatskeleton/>
-                </div>
-              ) }
+          {isChatloading && (
+            <div className='ChatSkeleton flex h-full w-full justify-center items-center'>
+              <Chatskeleton />
+            </div>
+          )}
           {chatId === undefined ? (
             <div className="greeting flex flex-col items-center justify-center h-full w-full">
               <h1 className='font-mainFont text-xl text-center font-medium md:text-3xl bg-gradient-to-r from-n-9 to-n-8 drop-shadow-[0_0_70px_red] text-transparent bg-clip-text'>
