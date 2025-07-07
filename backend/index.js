@@ -8,11 +8,20 @@ const chatRoutes = require('./routes/chats')
 
 dotenv.config();
 const app = express();
-connectDB();
+
+
 //first builtinmiddleware
 app.use(cors());
 //second builtinmiddleware
 app.use(express.json());
+
+//databaseconnectionon everyrequest is nenecessary
+app.use(async(req,res , next)=>{
+    await connectDB();
+    next();
+});
+
+
 /*third custom middleware;
 const meramiddleware = function (req , res ,next){
     console.log("this is my first custum middleware");
