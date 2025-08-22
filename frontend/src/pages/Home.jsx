@@ -310,7 +310,7 @@ const Home = () => {
               {messages.map((msg, index) => (
                 <div
                   key={index}
-                  className={`message p-3 rounded-2xl ${msg.role === 'user' ? 'bg-[#192333] ml-auto' :
+                  className={`message rounded-2xl ${msg.role === 'user' ? 'bg-[#192333] py-[0.5px] px-4 ml-auto' :
                     msg.role === 'system' ? 'bg-red-900/30' : ""
                     } max-w-full`}
                 >
