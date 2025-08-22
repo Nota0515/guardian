@@ -261,7 +261,7 @@ const Home = () => {
               <Button className=" w-full text-sm font-mainFont h-10 rounded-xl border border-pink-500/30 bg-pink-950 md:bg-pink-950/50  md:hover:bg-pink-950 drop-shadow-[0_0_80px_red]" onClick={HandleNewClick}>New Problem</Button>
             </div>
             {summeryLoad ? (
-              <Sidebarskeleton/>
+              <Sidebarskeleton />
             ) : (
               <SidebarCon
                 chats={chatSummaries}
@@ -314,7 +314,7 @@ const Home = () => {
                     msg.role === 'system' ? 'bg-red-900/30' : ""
                     } max-w-full`}
                 >
-                  <div className="prose prose-invert max-w-none break-words whitespace-pre-wrap">
+                  <div className="prose prose-invert max-w-none break-words prose-p:my-1 prose-headings:my-2 prose-hr:my-3">
                     <ReactMarkdown>{msg.content}</ReactMarkdown>
                   </div>
                   {msg.file && (
