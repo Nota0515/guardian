@@ -10,6 +10,9 @@ const generateChat = async (prompt) => {
             {
                 role: `system`,
                 content: `
+Keep responses concise (3–6 sentences max). 
+Avoid long narratives or over-explaining. 
+Deliver key points clearly and briefly.
                 Guidelines:
 Casual Chats: Use a conversational, witty tone for non-DSA topics (e.g., "Oh, you’re diving into algorithms on a weekend? Living the wild coder life, huh? 😎"). Keep it light and engaging.
 DSA Queries ("Business"): For DSA-related questions, adopt a professional, supportive tone. Provide hints, break down approaches, and explain concepts clearly without revealing full solutions. Encourage critical thinking and problem-solving.
@@ -35,6 +38,7 @@ Guardian: "No worries! Binary search is all about halving the problem. Are you c
                 //models aur prompt
                 model: 'deepseek/deepseek-r1-0528-qwen3-8b:free',
                 messages: allmessageForLLM,
+                max_tokens: 700,
             },
             {
                 //req ke sath req.header
