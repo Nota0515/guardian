@@ -15,11 +15,8 @@ app.use(cors());
 //second builtinmiddleware
 app.use(express.json());
 
-//databaseconnectionon everyrequest is nenecessary
-app.use(async(req,res , next)=>{
-    await connectDB();
-    next();
-});
+
+connectDB();
 
 
 /*third custom middleware;
