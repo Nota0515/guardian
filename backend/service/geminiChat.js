@@ -36,7 +36,7 @@ Guardian: "No worries! Binary search is all about halving the problem. Are you c
             'https://openrouter.ai/api/v1/chat/completions',
             {
                 //models aur prompt
-                model: 'deepseek/deepseek-r1-0528-qwen3-8b:free',
+                model: 'openrouter/sonoma-sky-alpha',
                 messages: allmessageForLLM,
                 max_tokens: 700,
             },
