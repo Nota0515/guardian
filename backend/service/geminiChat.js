@@ -18,7 +18,7 @@ const generateChat = async (prompt) => {
             'https://openrouter.ai/api/v1/chat/completions',
             {
                 //models aur prompt
-                model: 'openrouter/sonoma-sky-alpha',
+                model: 'x-ai/grok-4-fast:free',
                 messages: allmessageForLLM,
                 max_tokens: 700,
             },
