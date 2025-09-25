@@ -6,6 +6,7 @@ import Pricing from "./pages/Pricing"
 import PrivateRoute from './components/PrivateRoute';
 import  { Analytics }  from '@vercel/analytics/react'
 import Notfoundpage from "./pages/Notfoundpage"
+import TimeComplexity from "./components/TimeComplexity"
 
 const App = () => {
   return (
@@ -29,6 +30,7 @@ const App = () => {
           <Route path="/pricing" element={<Pricing />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/timecomplexity" element={<TimeComplexity/> } />
           <Route path="*" element={<Notfoundpage />} />
         </Routes>
       </div>
