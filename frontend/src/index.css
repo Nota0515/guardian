@@ -28,7 +28,17 @@
 .scrollbar-track-transparent::-webkit-scrollbar-track {
   background: transparent !important;
 }
+
 }
+
+@layer utilities {
+  .no-editor-focus textarea {
+    outline: none !important;
+    box-shadow: none !important;
+    border: none !important;
+  }
+}
+
 
 html, body {
   margin: 0;
