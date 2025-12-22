@@ -18,7 +18,7 @@ const generateChat = async (prompt) => {
             'https://openrouter.ai/api/v1/chat/completions',
             {
                 //models aur prompt
-                model: 'x-ai/grok-4-fast:free',
+                model: 'x-ai/grok-4-fast',
                 messages: allmessageForLLM,
                 max_tokens: 700,
             },
