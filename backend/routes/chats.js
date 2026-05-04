@@ -1,7 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const Chats = require('../models/Chats');
+const chatMessage = require('../controller/chatMessage')
 const { protect } = require('../middleware/authmiddleware');
+const redisClient = require('../config/redisClient');
 
 //toh basically hmlog isme ak route level middleware ke sath api end point bena rehe hai
 //in which when the client creates it's first request then 2 calls hits honge 1st is /conversation for getting response and the 2nd one is the /chats api through which we will store this info into database
@@ -45,6 +47,9 @@ router.post('/chats', protect, async (req, res) => {
 
 router.post('/chats/:chatId/messages', protect, async (req, res) => {
     const { role, content } = req.body;
+    const userId = req.user._id;
+    const chatId = req.params.chatId;
+
     const chat = await Chats.findById(req.params.chatId);
     if (!chat || !chat.user.equals(req.user._id)) {
         return res.status(404).json({ error: "not found" });
@@ -52,6 +57,7 @@ router.post('/chats/:chatId/messages', protect, async (req, res) => {
     chat.messages.push({ role, content });
     chat.updatedAt = Date.now();
     await chat.save();
+    await redisClient.del(`chat:${userId}:${chatId}`)
     return res.status(201).json("Done Bro jake compass check kerle");
 });
 
@@ -74,20 +80,11 @@ router.get('/chats', protect, async (req, res) => {
 });
 
 
-router.get('/chats/:chatId', protect, async (req, res) => {
-    try {
-        const chat = await Chats.findById(req.params.chatId);
-        if (!chat || !chat.user._id.equals(req.user._id)) {
-            return res.status(404).json({ error: 'chat not found' })
-        }
-        res.status(200).json(chat);
-    } catch (error) {
-        res.status(500).json({ error: "Cannot fetch full chat" })
-    }
-});
+router.get('/chats/:chatId', protect, chatMessage);
 
 router.patch('/chats/:chatId', protect, async (req, res) => {
     try {
+        const userId = req.user._id;
         const { chatId } = req.params;
         const { title } = req.body;
         const chat = await Chats.findByIdAndUpdate(
@@ -99,6 +96,7 @@ router.patch('/chats/:chatId', protect, async (req, res) => {
             return res.status(404).json({ error: "chat not Found" })
         };
 
+        await redisClient.del(`chat:${userId}:${chatId}`)
         res.status(207).json({ sucess: true })
     } catch (error) {
         res.status(500).json({ error: " internal router error " });
@@ -107,11 +105,14 @@ router.patch('/chats/:chatId', protect, async (req, res) => {
 
 router.delete('/chats/:chatId', protect, async (req, res) => {
     try {
+        const userId = req.user._id;
         const { chatId } = req.params;
         const chat = await Chats.findByIdAndDelete(chatId);
         if (!chat) {
             return res.status(404).json({ error: 'Invalid/not found' });
         };
+
+        await redisClient.del(`chat:${userId}:${chatId}`)
         res.status(204).json({ sucess: true });
     } catch (error) {
         res.status(500).json({ error: "internal server error" })
